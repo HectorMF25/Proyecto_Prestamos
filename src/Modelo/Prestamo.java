@@ -1,7 +1,7 @@
 package Modelo;
 
 public class Prestamo {
-    //Atributos de prestamo
+    ///
     private double monto;
 
     private double interes;
