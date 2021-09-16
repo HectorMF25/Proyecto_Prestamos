@@ -1,8 +1,7 @@
 package Modelo;
 
 public class Prestamo {
-    //Comentario hecho por Kevin 
-
+    //Atributos de prestamo
     private double monto;
 
     private double interes;
