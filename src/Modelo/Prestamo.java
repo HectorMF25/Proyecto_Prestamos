@@ -1,7 +1,7 @@
 package Modelo;
 
 public class Prestamo {
-    ///
+
     private double monto;
 
     private double interes;
