@@ -1,5 +1,6 @@
 package Modelo;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 public class Fecha {
 
     private int dia;
@@ -7,6 +8,12 @@ public class Fecha {
     private int mes;  //consideracion (utilizar un atributo de tipo calendar o crear alguna otra cosa para registrar la fecha actual automaticamente)
 
     private int anio;
+
+    void imprimeFecha()
+    {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MMMM/dd HH:mm:ss");
+        System.out.println("yyyy/MMMM/dd HH:mm:ss-> "+dtf.format(LocalDateTime.now()));
+    }
 
     public Fecha(int dia, int mes, int anio) {
         this.dia = dia;
