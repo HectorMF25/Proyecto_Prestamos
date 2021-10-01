@@ -8,19 +8,27 @@ public class Prestamo {
 
     private int plazo;
 
+    private Cliente cliente;
+
     //Pago---> lo que pagara el cliente (lista o atributo)?
 
-    public Prestamo(double monto, double interes, int plazo) {
+
+    public Prestamo(double monto, double interes, int plazo, Cliente cliente) {
         this.monto = monto;
         this.interes = interes;
         this.plazo = plazo;
+        this.cliente = cliente;
     }
 
     public Prestamo() {
+
+    }
+
+    /*public Prestamo() {
         this.monto = 0;
         this.interes = 0;
         this.plazo = 0;
-    }
+    }*/
 
     public double getMonto() {
         return monto;
@@ -46,12 +54,21 @@ public class Prestamo {
         this.plazo = plazo;
     }
 
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     @Override
     public String toString() {
         return "Prestamo{" +
                 "monto=" + monto +
                 ", interes=" + interes +
                 ", plazo=" + plazo +
+                ", Cliente: "+ cliente.toString()+
                 '}';
     }
 }
