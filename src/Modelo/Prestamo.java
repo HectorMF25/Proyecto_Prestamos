@@ -10,7 +10,6 @@ public class Prestamo {
 
     //Pago---> lo que pagara el cliente (lista o atributo)?
 
-
     public Prestamo(double monto, double interes, int plazo) {
         this.monto = monto;
         this.interes = interes;

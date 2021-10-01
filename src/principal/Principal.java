@@ -1,10 +1,18 @@
-package principal;
-import controlador.Controlador;
+package Principal;
+import vista.VistaClientes;
+
+//
 public class Principal
 {
     public static void main(String [] args)
     {
-        Controlador controlador = new Controlador();
-        controlador.controladorDeInteracciones();
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                VistaClientes vista = new VistaClientes();
+            }
+
+        });
     }
 }
