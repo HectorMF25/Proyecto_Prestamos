@@ -3,6 +3,8 @@ package vista;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -146,6 +148,89 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         btnPrestamo.setHorizontalTextPosition(SwingConstants.CENTER);
         btnPrestamo.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnPrestamo.setToolTipText("Boton para realizar y ver prestamos");
+    }
+
+    void agregarListeners(ActionListener ac){
+        btnBuscar.addActionListener(ac);
+        btnPrestamo.addActionListener(ac);
+        btnGuardar.addActionListener(ac);
+    }
+
+    void addMouseMotionListeners(MouseMotionListener mtl){
+        jLabelImagen.addMouseMotionListener(mtl);
+    }
+
+    public int getX() {
+        return X;
+    }
+
+    @Override
+    public int getY() {
+        return Y;
+    }
+
+    public JTextField getjTextFProvincia() {
+        return jTextFProvincia;
+    }
+
+    public JTextField getjTextFNombre() {
+        return jTextFNombre;
+    }
+
+    public JTextField getjTextFId() {
+        return jTextFId;
+    }
+
+    public JComboBox getjComboCanton() {
+        return jComboCanton;
+    }
+
+    public JComboBox getjComboDistrito() {
+        return jComboDistrito;
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+
+    public JButton getBtnPrestamo() {
+        return btnPrestamo;
+    }
+
+    public void setjTextFProvincia(JTextField jTextFProvincia) {
+        this.jTextFProvincia = jTextFProvincia;
+    }
+
+    public void setjTextFNombre(JTextField jTextFNombre) {
+        this.jTextFNombre = jTextFNombre;
+    }
+
+    public void setjTextFId(JTextField jTextFId) {
+        this.jTextFId = jTextFId;
+    }
+
+    public void setjComboCanton(JComboBox jComboCanton) {
+        this.jComboCanton = jComboCanton;
+    }
+
+    public void setjComboDistrito(JComboBox jComboDistrito) {
+        this.jComboDistrito = jComboDistrito;
+    }
+
+    public void setBtnBuscar(JButton btnBuscar) {
+        this.btnBuscar = btnBuscar;
+    }
+
+    public void setBtnGuardar(JButton btnGuardar) {
+        this.btnGuardar = btnGuardar;
+    }
+
+    public void setBtnPrestamo(JButton btnPrestamo) {
+        this.btnPrestamo = btnPrestamo;
     }
 
 }
