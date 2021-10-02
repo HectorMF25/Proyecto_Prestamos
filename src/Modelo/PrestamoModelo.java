@@ -5,25 +5,25 @@ import java.util.List;
 
 public class PrestamoModelo
 {
-    private ListClass listClass;
+    private List<Prestamo> listaPres;
 
     public PrestamoModelo() {
-        listClass = new ListClass();
+        listaPres = new ArrayList<>();
     }
 
-    public void asignarDatosPrestamo(double m, double in, int p, Cliente c)
+    public void asignarDatosPrestamo(double m, double in, int p, Cliente c) //agregar a la lista
     {
         Prestamo prestamo = new Prestamo();
         prestamo.setMonto(m);
         prestamo.setInteres(in);
         prestamo.setPlazo(p);
         prestamo.setCliente(c);
-        listClass.getListaPres().add(prestamo);
+        listaPres.add(prestamo);
     }
 
-    public void listarPrestamos()
+    public void listarPrestamos()//imprimir lista
     {
-        for(Prestamo prestamo : listClass.getListaPres())
+        for(Prestamo prestamo : listaPres )
         {
             System.out.println(prestamo.toString());
 
@@ -35,7 +35,7 @@ public class PrestamoModelo
         List<Prestamo> l = new ArrayList<>();
         int flag = 0;
         int ID = Integer.parseInt(id);
-        for (Prestamo prestamo : listClass.getListaPres())
+        for (Prestamo prestamo : listaPres )
         {
             if(prestamo.getCliente().getCedula()==ID)
             {

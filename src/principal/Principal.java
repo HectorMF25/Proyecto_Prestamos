@@ -10,7 +10,7 @@ public class Principal
 
             @Override
             public void run() {
-                VistaClientes vista = new VistaClientes();
+                //VistaClientes vista = new VistaClientes();
             }
 
         });

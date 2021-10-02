@@ -1,11 +1,14 @@
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PagoModelo
 {
-    private ListClass listClass;
+    private List<Pago> listaPag;
 
     public PagoModelo() {
-        listClass = new ListClass();
+        listaPag = new ArrayList<>();
     }
 
     void asignarDatosPago()
