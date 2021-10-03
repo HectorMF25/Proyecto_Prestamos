@@ -2,6 +2,8 @@ package Modelo;
 
 public class Prestamo {
 
+    private String idPrestamo;
+
     private double monto;
 
     private double interes;
@@ -10,25 +12,34 @@ public class Prestamo {
 
     private Cliente cliente;
 
-    //Pago---> lo que pagara el cliente (lista o atributo)?
+    PagoModelo listaPagos;
 
 
-    public Prestamo(double monto, double interes, int plazo, Cliente cliente) {
+    public Prestamo(double monto, double interes, int plazo, Cliente cliente, PagoModelo listaP, String id) {
         this.monto = monto;
         this.interes = interes;
         this.plazo = plazo;
         this.cliente = cliente;
+        this.listaPagos = listaP;
+        this.idPrestamo = id;
     }
 
     public Prestamo() {
-
-    }
-
-    /*public Prestamo() {
         this.monto = 0;
         this.interes = 0;
         this.plazo = 0;
-    }*/
+        this.cliente = null;
+        this.listaPagos = null;
+        this.idPrestamo = "";
+    }
+
+    public String getIdPrestamo() {
+        return idPrestamo;
+    }
+
+    public PagoModelo getListaPagos() {
+        return listaPagos;
+    }
 
     public double getMonto() {
         return monto;

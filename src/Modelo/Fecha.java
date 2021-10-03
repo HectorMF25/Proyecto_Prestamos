@@ -1,62 +1,28 @@
 package Modelo;
-import java.time.LocalDateTime;
+import java.text.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-public class Fecha {
 
-    private int dia;
+public class Fecha{
 
-    private int mes;  //consideracion (utilizar un atributo de tipo calendar o crear alguna otra cosa para registrar la fecha actual automaticamente)
-
-    private int anio;
-
-    void imprimeFecha()
-    {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MMMM/dd HH:mm:ss");
-        System.out.println("yyyy/MMMM/dd HH:mm:ss-> "+dtf.format(LocalDateTime.now()));
-    }
-
-    public Fecha(int dia, int mes, int anio) {
-        this.dia = dia;
-        this.mes = mes;
-        this.anio = anio;
-    }
+    private String fechaString;
+    private String horaString;
 
     public Fecha() {
-        this.dia = 0;
-        this.mes = 0;
-        this.anio = 0;
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        LocalDate fechaActual = LocalDate.now();
+        LocalTime horaActual = LocalTime.now();
+        String fechaString = fechaActual.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")); //estalece el formato en el que lo quiero pasar a String
+        String horaString = horaActual.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 
-    public int getDia() {
-        return dia;
+    public String getFechaString() {
+        return fechaString;
     }
 
-    public int getMes() {
-        return mes;
+    public String getHoraString() {
+        return horaString;
     }
 
-    public int getAnio() {
-        return anio;
-    }
-
-    public void setDia(int dia) {
-        this.dia = dia;
-    }
-
-    public void setMes(int mes) {
-        this.mes = mes;
-    }
-
-    public void setAnio(int anio) {
-        this.anio = anio;
-    }
-
-    @Override
-    public String toString() {
-        return "Fecha{" +
-                "dia=" + dia +
-                ", mes=" + mes +
-                ", anio=" + anio +
-                '}';
-    }
 }

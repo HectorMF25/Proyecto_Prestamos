@@ -4,8 +4,9 @@ import javax.swing.*;
 
 public class VistaPrestamos extends JFrame{
 
-    JTable jTableprestamos, jTableCuotas;
+    JTable jTableprestamos, jTableCuotas; //tablas que mostraran los prestamos y los pagos de cadaa prestamo
     JButton btnPago;
+    JTextField jTextFMonto, numeroCuota;
 
     VistaPrestamos(){
 

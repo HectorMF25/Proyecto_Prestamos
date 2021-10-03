@@ -38,12 +38,8 @@ public class ClienteModelo
     {
         for(Cliente cli : listaC)
         {
-            System.out.println("id a buscar: "+id+"  id de la lista: "+cli.getCedula());
-            if (cli.getCedula() == id)
-            {
-                if(id.equals(cli.getCedula()) == true){
-                    return true;
-                }
+            if(id.equals(cli.getCedula()) == true){
+                return true;
             }
         }
         return false;

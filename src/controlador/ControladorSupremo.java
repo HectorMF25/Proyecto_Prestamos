@@ -62,14 +62,16 @@ public class ControladorSupremo {
                         }
                         cliente = new Cliente(id,nombre,provincia,canton,distrito);
                         controlClientes.listaCliente.addCliente(cliente); //agrega un nuevo cliente
-                    }catch (RuntimeException rt){
-                        JOptionPane.showMessageDialog(null,rt.getMessage());
+
+                        controlClientes.listaCliente.listarClientes();
+                        JOptionPane.showMessageDialog(null, "Se ingreso el cliente al sistema");
+                    }catch (RuntimeException rt) {
+                        JOptionPane.showMessageDialog(null, rt.getMessage());
                     }
-                    JOptionPane.showMessageDialog(null, "Se ingreso el cliente al sistema");
                     break;
                 }//Boton de agregar cliente
                 case 3:{
-
+                    controlClientes.vistaCliente.setVisible(false);
                 }//Boton de abrir ventna de prestamos
             }
         }
