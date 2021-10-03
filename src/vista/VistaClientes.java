@@ -1,18 +1,28 @@
 package vista;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VistaClientes extends JFrame { //ventana principal donde se agregaran y busc
 
     //atributos
     Image imagen;
-    int X, Y;
+
     JLabel jLabelNombre,  jLabelId, jLabelProvincia, jLabelCanton, jLabelDistrito, jLabelImagen;
     JTextField jTextFProvincia, jTextFNombre, jTextFId;
     JComboBox jComboCanton, jComboDistrito;
@@ -99,7 +109,7 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
     void instantiateComponents(){ //Me instanciaa los componentes
         Font font = new Font("Rockwell",Font.BOLD,16);
         Font text = new Font("Rockwell",Font.BOLD,10);
-        Color col = new Color(176, 170, 170);
+        Color col = new Color(35, 34, 34);
 
         jLabelImagen = new JLabel(new ImageIcon(imagen));
         jLabelNombre = new JLabel("Nombre");
@@ -115,6 +125,7 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
 
         jTextFProvincia = new JTextField(50);
         jTextFProvincia.setEnabled(false);
+        jTextFProvincia.setForeground(Color.red);
         jTextFProvincia.setBackground(col);
         jTextFProvincia.setToolTipText("Provincia de residencia");
 
@@ -150,23 +161,17 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         btnPrestamo.setToolTipText("Boton para realizar y ver prestamos");
     }
 
-    void agregarListeners(ActionListener ac){
+    public void agregarListeners(ActionListener ac){
         btnBuscar.addActionListener(ac);
         btnPrestamo.addActionListener(ac);
         btnGuardar.addActionListener(ac);
     }
 
-    void addMouseMotionListeners(MouseMotionListener mtl){
+    public void addMouseMotionListeners(MouseMotionListener mtl){
         jLabelImagen.addMouseMotionListener(mtl);
     }
-
-    public int getX() {
-        return X;
-    }
-
-    @Override
-    public int getY() {
-        return Y;
+    public void addMouseListeners(MouseListener ml){
+        jLabelImagen.addMouseListener(ml);
     }
 
     public JTextField getjTextFProvincia() {
@@ -179,6 +184,10 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
 
     public JTextField getjTextFId() {
         return jTextFId;
+    }
+
+    public JLabel getjLabelImagen() {
+        return jLabelImagen;
     }
 
     public JComboBox getjComboCanton() {
@@ -233,4 +242,42 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         this.btnPrestamo = btnPrestamo;
     }
 
+  /*  public void leerXMLSanJose(){
+        List<String> list = new ArrayList<>();
+        try{
+            File archivoXML =new File("C:\\Users\\luda2\\Desktop\\Universidad Hector\\Ciclo 2 (level 2)\\Programacion 3\\Proyectos Programacion\\Proyecto_Prestamos\\src\\SanJose.xml");
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = dbf.newDocumentBuilder();
+            Document documentoXML = builder.parse(archivoXML);
+
+            documentoXML.getDocumentElement().normalize();
+
+            System.out.println("Elemento raiz: "+ documentoXML.getDocumentElement().getNodeName());
+            System.out.println("Elemento tag: "+ documentoXML.getDocumentElement().getTagName());
+
+            //obtener los elementos a partir del nombre de una etiqueta
+            NodeList provincias = documentoXML.getElementsByTagName("cantones");
+            System.out.println("Contenido del XML\n\n");
+            // System.out.println("Longitud"+provincias.getLength());
+            for(int i = 0 ; i<provincias.getLength(); i++ ){
+                Node provincia = provincias.item(i);
+                // System.out.println("Contenido Actual: "+ provincia); //data
+
+                // System.out.println("Contenido Actual: "+ provincia.getNodeName()); //data
+
+                if(provincia.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) provincia;
+
+                    //Me devuelve el nombre de la provincia o canton
+                    System.out.println("nombre canton: " + element.getElementsByTagName("nombre").item(0).getTextContent()); //Nombre del canton
+
+                    //Me devuelve el distrito de tal posicion
+                    System.out.println("distritos: " + element.getElementsByTagName("distritos").item(0).getTextContent());
+                }
+            }
+
+        }catch (Exception e){
+            System.out.println("error");
+        }
+    }*/
 }

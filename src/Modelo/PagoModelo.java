@@ -11,8 +11,4 @@ public class PagoModelo
         listaPag = new ArrayList<>();
     }
 
-    void asignarDatosPago()
-    {
-
-    }
 }
