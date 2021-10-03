@@ -32,7 +32,7 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
 
         setVisible(true);
 
-        setTitle("Prestamos Clientes");
+        setTitle("Ventana Clientes");
 
         setBounds(100, 25, 950, 730);
 
@@ -50,6 +50,13 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         this.addBackground();
         this.instantiateComponents();
         this.addComponents();
+        this.addCommits();
+    }
+
+    public void addCommits(){
+        btnBuscar.setActionCommand("1");
+        btnGuardar.setActionCommand("2");
+        btnPrestamo.setActionCommand("3");
     }
 
     public void addBackground(){
@@ -161,7 +168,7 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         btnPrestamo.setToolTipText("Boton para realizar y ver prestamos");
     }
 
-    public void agregarListeners(ActionListener ac){
+    public void addListeners(ActionListener ac){
         btnBuscar.addActionListener(ac);
         btnPrestamo.addActionListener(ac);
         btnGuardar.addActionListener(ac);
@@ -242,42 +249,21 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         this.btnPrestamo = btnPrestamo;
     }
 
-  /*  public void leerXMLSanJose(){
-        List<String> list = new ArrayList<>();
-        try{
-            File archivoXML =new File("C:\\Users\\luda2\\Desktop\\Universidad Hector\\Ciclo 2 (level 2)\\Programacion 3\\Proyectos Programacion\\Proyecto_Prestamos\\src\\SanJose.xml");
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = dbf.newDocumentBuilder();
-            Document documentoXML = builder.parse(archivoXML);
-
-            documentoXML.getDocumentElement().normalize();
-
-            System.out.println("Elemento raiz: "+ documentoXML.getDocumentElement().getNodeName());
-            System.out.println("Elemento tag: "+ documentoXML.getDocumentElement().getTagName());
-
-            //obtener los elementos a partir del nombre de una etiqueta
-            NodeList provincias = documentoXML.getElementsByTagName("cantones");
-            System.out.println("Contenido del XML\n\n");
-            // System.out.println("Longitud"+provincias.getLength());
-            for(int i = 0 ; i<provincias.getLength(); i++ ){
-                Node provincia = provincias.item(i);
-                // System.out.println("Contenido Actual: "+ provincia); //data
-
-                // System.out.println("Contenido Actual: "+ provincia.getNodeName()); //data
-
-                if(provincia.getNodeType() == Node.ELEMENT_NODE) {
-                    Element element = (Element) provincia;
-
-                    //Me devuelve el nombre de la provincia o canton
-                    System.out.println("nombre canton: " + element.getElementsByTagName("nombre").item(0).getTextContent()); //Nombre del canton
-
-                    //Me devuelve el distrito de tal posicion
-                    System.out.println("distritos: " + element.getElementsByTagName("distritos").item(0).getTextContent());
-                }
+    public void colocarDistritoComboBox(String distrito){
+        int index =0;
+        for(int i = 0; i< jComboDistrito.getItemCount();i++){
+            if(distrito.equals((String)jComboDistrito.getItemAt(i)) == true){
+                jComboDistrito.setSelectedIndex(i);
             }
-
-        }catch (Exception e){
-            System.out.println("error");
         }
-    }*/
+    }
+
+    public void colocarCantonComboBox(String canton){
+        int index =0;
+        for(int i = 0; i< jComboCanton.getItemCount();i++){
+            if(canton.equals((String)jComboCanton.getItemAt(i)) == true){
+                jComboCanton.setSelectedIndex(i);
+            }
+        }
+    }
 }

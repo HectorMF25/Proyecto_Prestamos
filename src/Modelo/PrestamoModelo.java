@@ -34,10 +34,9 @@ public class PrestamoModelo
     {
         List<Prestamo> l = new ArrayList<>();
         int flag = 0;
-        int ID = Integer.parseInt(id);
         for (Prestamo prestamo : listaPres )
         {
-            if(prestamo.getCliente().getCedula()==ID)
+            if(prestamo.getCliente().getCedula()==id)
             {
                 flag = 1;
                 l.add(prestamo);

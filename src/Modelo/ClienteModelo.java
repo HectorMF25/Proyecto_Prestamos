@@ -11,7 +11,7 @@ public class ClienteModelo
        listaC = new ArrayList<>();
     }
 
-    public void asignaDatosCliente(int id, String n, String p, String c, String d)
+    public void asignaDatosCliente(String id, String n, String p, String c, String d)
     {
         Cliente cli = new Cliente();
         cli.setCedula(id);
@@ -20,6 +20,9 @@ public class ClienteModelo
         cli.setCanton(c);
         cli.setDistrito(d);
         listaC.add(cli);
+    }
+    public void addCliente(Cliente obj){
+        listaC.add(obj);
     }
 
     public void listarClientes()
@@ -33,35 +36,27 @@ public class ClienteModelo
 
     public boolean buscarClienteBool(String id)
     {
-        int flag = 0;
-        int ID = Integer.parseInt(id);
         for(Cliente cli : listaC)
         {
-            if (ID == cli.getCedula())
+            System.out.println("id a buscar: "+id+"  id de la lista: "+cli.getCedula());
+            if (cli.getCedula() == id)
             {
-                return true;
+                if(id.equals(cli.getCedula()) == true){
+                    return true;
+                }
             }
         }
-        if(flag==0)
-            return false;
         return false;
     }
 
     public Cliente buscarClienteID(String id)
     {
-        int flag = 0;
-        int ID = Integer.parseInt(id);
        for(Cliente cli : listaC)
         {
-            if (ID == cli.getCedula())
-            {
-                flag = 1;
+            if(id.equals(cli.getCedula()) == true){
                 return cli;
             }
         }
-        if(flag==0)
-            return null;
-
-        return null;
+       return null;
     }
 }

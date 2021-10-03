@@ -2,7 +2,7 @@ package Modelo;
 
 public class Cliente {
 
-    private int cedula;
+    private String cedula;
 
     private String nombre;
 
@@ -12,7 +12,7 @@ public class Cliente {
 
     private String distrito;
 
-    public Cliente(int cedula, String nombre, String provincia, String canton, String distrito) {
+    public Cliente(String cedula, String nombre, String provincia, String canton, String distrito) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.provincia = provincia;
@@ -21,14 +21,14 @@ public class Cliente {
     }
 
     public Cliente() {
-        this.cedula = 0;
+        this.cedula = "";
         this.nombre = "";
         this.provincia = "";
         Canton = "";
         this.distrito = "";
     }
 
-    public int getCedula() {
+    public String getCedula() {
         return cedula;
     }
 
@@ -48,7 +48,7 @@ public class Cliente {
         return distrito;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(String cedula) {
         this.cedula = cedula;
     }
 

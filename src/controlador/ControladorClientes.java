@@ -26,8 +26,10 @@ public class ControladorClientes {
 
         listaCliente = new ClienteModelo();
         vistaCliente = new VistaClientes();
+        listaCliente.addCliente(new Cliente("123","nombre", "Alajuela","Grecia", "San Mateo"));
         vistaCliente.addMouseMotionListeners(new ListenerMapa());
         vistaCliente.addMouseListeners(new MouseListenerMapa());
+        listaCliente.listarClientes();
     }
 
    /* public void tablaXML(){ //me agregara a la lista elementos por defecto

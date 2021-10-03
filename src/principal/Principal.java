@@ -1,5 +1,6 @@
 package Principal;
 import controlador.ControladorClientes;
+import controlador.ControladorSupremo;
 import vista.VistaClientes;
 
 //
@@ -11,7 +12,7 @@ public class Principal
 
             @Override
             public void run() {
-                ControladorClientes control = new ControladorClientes();
+                ControladorSupremo control = new ControladorSupremo();
             }
 
         });
