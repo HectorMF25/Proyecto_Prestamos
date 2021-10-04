@@ -30,6 +30,10 @@ public class PrestamoModelo
         }
     }
 
+    public List<Prestamo> getListaPres() {
+        return listaPres;
+    }
+
     public void listarPrestamosPorCliente(String id)
     {
         List<Prestamo> l = new ArrayList<>();

@@ -1,6 +1,5 @@
 package controlador;
 
-import Modelo.Cliente;
 import Modelo.ClienteModelo;
 import Modelo.JAXBParser;
 import org.w3c.dom.Document;
@@ -14,8 +13,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.event.*;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ControladorClientes {
     int provincia;
@@ -32,24 +29,24 @@ public class ControladorClientes {
         listaCliente.listarClientes();
     }
 
-   /* public void tablaXML(){ //me agregara a la lista elementos por defecto
+    public void tablaXML(){ //me agregara a la lista elementos por defecto
 
-        list.add(new ActorModelo("123","Emma Stone", 28));
+       /* list.add(new ActorModelo("123","Emma Stone", 28));
         list.add(new ActorModelo("321","Andy Samberg", 19));
-        list.add(new ActorModelo("345","Leonardo Di Caprio", 1));
+        list.add(new ActorModelo("345","Leonardo Di Caprio", 1));*/
 
-        JABX_Parser parser = new JABX_Parser(); //creo la intancia de la clase que me realiza el marshal y unkmarshall
-        parser.marshall(list, "actores.xml"); //Me agarra toda la lista y la metera adentro de un archivo
-        ListaActor lista2 = (ListaActor) parser.unmarshall(new ListaActor(), "actores.xml");
+        JAXBParser parser = new JAXBParser(); //creo la intancia de la clase que me realiza el marshal y unkmarshall
+        parser.marshall(listaCliente, "Clientes.xml"); //Me agarra toda la lista y la metera adentro de un archivo
+        ClienteModelo lista2 = (ClienteModelo) parser.unmarshall(new ClienteModelo(), "Clientes.xml");
 
-        JTable tabla = new JTable();
+      /*  JTable tabla = new JTable();
         tabla.setModel(new JTableModelActor(lista2.getList()));
         tabla.addMouseListener(new ListenerTable(tabla));
         vistaActores.setTablaActores(tabla); //se agrego
 
         JScrollPane pn1 = new JScrollPane(tabla);
-        vistaActores.agregarTabla(pn1);
-    }8/
+        vistaActores.agregarTabla(pn1);*/
+    }
 
    /* public void actualizarDatos(){
         JTable tabla = new JTable();
@@ -228,13 +225,13 @@ public class ControladorClientes {
            public void mouseClicked(MouseEvent e) {
                super.mouseClicked(e);
                switch (provincia){
-                   case 1:vistaCliente.getjTextFProvincia().setText("Heredia"); agregarComboBoxXML("Heredia.xml"); break;
-                   case 2:vistaCliente.getjTextFProvincia().setText("Alajuela"); agregarComboBoxXML("Alajuela.xml");break;
-                   case 3:vistaCliente.getjTextFProvincia().setText("Cartago"); agregarComboBoxXML("Cartago.xml");break;
-                   case 4:vistaCliente.getjTextFProvincia().setText("San Jose"); agregarComboBoxXML("SanJose.xml");break;
-                   case 5:vistaCliente.getjTextFProvincia().setText("Puntarenas"); agregarComboBoxXML("Puntarenas.xml");break;
-                   case 6:vistaCliente.getjTextFProvincia().setText("Guanacaste"); agregarComboBoxXML("Guanacaste.xml");break;
-                   case 7:vistaCliente.getjTextFProvincia().setText("Limon"); agregarComboBoxXML("Limon.xml");break;
+                   case 1:vistaCliente.getjTextFProvincia().setText("Heredia"); agregarComboBoxXML("XML_CostaRica/Heredia.xml"); break;
+                   case 2:vistaCliente.getjTextFProvincia().setText("Alajuela"); agregarComboBoxXML("XML_CostaRica/Alajuela.xml");break;
+                   case 3:vistaCliente.getjTextFProvincia().setText("Cartago"); agregarComboBoxXML("XML_CostaRica/Cartago.xml");break;
+                   case 4:vistaCliente.getjTextFProvincia().setText("San Jose"); agregarComboBoxXML("XML_CostaRica/SanJose.xml");break;
+                   case 5:vistaCliente.getjTextFProvincia().setText("Puntarenas"); agregarComboBoxXML("XML_CostaRica/Puntarenas.xml");break;
+                   case 6:vistaCliente.getjTextFProvincia().setText("Guanacaste"); agregarComboBoxXML("XML_CostaRica/Guanacaste.xml");break;
+                   case 7:vistaCliente.getjTextFProvincia().setText("Limon"); agregarComboBoxXML("XML_CostaRica/Limon.xml");break;
                    default:break;
                }
            }

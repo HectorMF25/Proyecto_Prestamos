@@ -1,6 +1,7 @@
 package Principal;
 import Modelo.Fecha;
 import controlador.ControladorClientes;
+import controlador.ControladorPrestamos;
 import controlador.ControladorSupremo;
 import vista.VistaClientes;
 
@@ -14,7 +15,7 @@ public class Principal
             @Override
             public void run() {
            //     ControladorSupremo control = new ControladorSupremo();
-                Fecha fech = new Fecha();
+                ControladorPrestamos control = new ControladorPrestamos();
             }
 
         });
