@@ -1,11 +1,15 @@
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClienteModelo
 {
-    private ListClass listClass;
 
+private List<Cliente> listaCli;
     public ClienteModelo() {
-        listClass = new ListClass();
+
+        listaCli = new ArrayList<>();
     }
 
     public void asignaDatosCliente(int id, String n, String p, String c, String d)
@@ -16,13 +20,15 @@ public class ClienteModelo
         cli.setProvincia(p);
         cli.setCanton(c);
         cli.setDistrito(d);
-        listClass.getListaC().add(cli);
+        listaCli.add(cli);
     }
 
     public void listarClientes()
     {
-        for(Cliente cli : listClass.getListaC())
+
+        for(Cliente cli : listaCli)
         {
+
             System.out.println(cli.toString());
 
         }
@@ -32,7 +38,7 @@ public class ClienteModelo
     {
         int flag = 0;
         int ID = Integer.parseInt(id);
-        for(Cliente cli : listClass.getListaC())
+        for(Cliente cli : listaCli)
         {
             if (ID == cli.getCedula())
             {
@@ -48,7 +54,7 @@ public class ClienteModelo
     {
         int flag = 0;
         int ID = Integer.parseInt(id);
-       for(Cliente cli : listClass.getListaC())
+        for(Cliente cli : listaCli)
         {
             if (ID == cli.getCedula())
             {

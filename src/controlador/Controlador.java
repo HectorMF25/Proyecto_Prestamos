@@ -1,11 +1,12 @@
 package controlador;
-import Modelo.ClienteModelo;
-import Modelo.PrestamoModelo;
+import Modelo.*;
 import vista.VistaPago;
 import vista.VistaCliente;
 import vista.VistaPrestamo;
 
 import java.util.Scanner;
+
+import static java.lang.Math.round;
 
 public class Controlador
 {
@@ -13,18 +14,19 @@ public class Controlador
 
     private ClienteModelo clienteModelo;
     private PrestamoModelo prestamoModelo;
+    private PagoModelo pagoModelo;
     private VistaCliente vistaCliente;
     private VistaPrestamo vistaPrestamo;
-    private VistaPago vista;
+    private VistaPago vistaPago;
 
     public Controlador()
     {
         clienteModelo = new ClienteModelo();
         prestamoModelo = new PrestamoModelo();
+        pagoModelo = new PagoModelo();
         vistaCliente = new VistaCliente();
         vistaPrestamo = new VistaPrestamo();
-      //  creadora = new Creadora();
-        vista = new VistaPago();
+        vistaPago = new VistaPago();
     }
 
 
@@ -44,10 +46,68 @@ public class Controlador
                     case 2:
                         interaccionesPrestamo();
                         break;
+                    case 3:
+                        pago();
                     default:
                         System.out.println("Opcion invalida, saliendo...");
                 }
             }
+    }
+
+    public void pago()
+    {
+        Scanner scanner = new Scanner(System.in);
+        String r = "1";
+        while (true)
+        {
+            try
+            {
+                vistaPago.capturaIDCli();
+                String id = vistaPago.getTextoIdCliente();
+
+                System.out.println("Estos son los prestamos del cliente:");
+                prestamoModelo.listarPrestamosPorCliente(id);
+
+                vistaPago.capturaIndice();
+                String indice = vistaPago.getTextoIndice();
+
+                prestamoModelo.imprimePrestamo(indice);
+                Prestamo p = prestamoModelo.devuelvePrestamo(indice);
+                System.out.println("Esta es la cuota del prestamo por mes:"+ Math.round(p.getCuota()));
+                System.out.println("Desea ingresar automaticamente el pago sugerido o prefiere ingresarlo por su cuenta?");
+                String d = scanner.nextLine();
+                if(d.equals("1"))
+                {
+                    pagoModelo.pagar(p, p.getCuota());
+                    prestamoModelo.imprimeDatosPagoInteres(indice);
+                    prestamoModelo.imprimeDatosPagoAmort(indice);
+                }
+                else
+                {
+                    vistaPago.capturaPago();
+                    double pago = Double.parseDouble(vistaPago.getTextoMontoPagar());
+                    pagoModelo.pagar(p, pago);
+                    prestamoModelo.imprimeDatosPagoInteres(indice);
+                    prestamoModelo.imprimeDatosPagoAmort(indice);
+                }
+                System.out.println("Desea seguir haciendo pagos?");
+                r = scanner.nextLine();
+                if (r.equals("1"))
+                {
+                    System.out.println("Ok seguimos");
+
+                }
+                else
+                {
+                    System.out.println("Terminamos");
+                    break;
+                }
+
+
+            } catch (Exception e) {
+                vistaPago.mostrarErrores(e.getMessage());
+            }
+        }
     }
 
     public void interaccionesPrestamo()
@@ -84,7 +144,7 @@ public class Controlador
                 }
             }
             catch (NumberFormatException e) {
-                vista.mostrarErrores("Solo de aceptan numeros!");
+                vistaPrestamo.mostrarErrores("Solo de aceptan numeros!");
             }
         }
     }
@@ -130,11 +190,11 @@ public class Controlador
                         }
             }
             catch (NumberFormatException exception) {
-                vista.mostrarErrores("El id solo acepta numeros!");
+                vistaCliente.mostrarErrores("El id solo acepta numeros!");
             }
             catch (Exception e)
             {
-                vista.mostrarErrores(e.getMessage());
+                vistaCliente.mostrarErrores(e.getMessage());
             }
 
         }
