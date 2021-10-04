@@ -39,7 +39,7 @@ public class PagoModelo
         double saldo = 0;
         if(Math.round(prestamo.getSaldo())==0)
         {
-            System.out.println("A esta lista ya se le han agregado los pagos correspondientes");
+            System.out.println("A esta lista ya se le han agregado los pagos correspondientes, deuda saldada");
         }
         else
         {
