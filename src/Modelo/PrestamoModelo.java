@@ -3,6 +3,10 @@ package Modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+
+
 public class PrestamoModelo
 {
     private List<Prestamo> listaPres;
@@ -28,10 +32,6 @@ public class PrestamoModelo
             System.out.println(prestamo.toString());
 
         }
-    }
-
-    public List<Prestamo> getListaPres() {
-        return listaPres;
     }
 
     public void listarPrestamosPorCliente(String id)

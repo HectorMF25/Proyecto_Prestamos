@@ -1,45 +1,40 @@
 package Modelo;
 
-public class Prestamo {
+import java.util.List;
 
-    private String idPrestamo;
+public class Prestamo {
 
     private double monto;
 
     private double interes;
 
-    private int plazo;
+    private double plazo;
+
+    private double saldo;
+
+    private double cuota;
+
+    private List<Pago> pagoList;
 
     private Cliente cliente;
 
-    PagoModelo listaPagos;
 
 
-    public Prestamo(double monto, double interes, int plazo, Cliente cliente, PagoModelo listaP, String id) {
+    public Prestamo(double monto, double interes, int plazo, double saldo, Cliente cliente,
+                    List<Pago> pagoList, double cuota) {
         this.monto = monto;
         this.interes = interes;
         this.plazo = plazo;
+        this.saldo = saldo;
         this.cliente = cliente;
-        this.listaPagos = listaP;
-        this.idPrestamo = id;
+        this.pagoList = pagoList;
+        this.cuota = cuota;
     }
 
     public Prestamo() {
-        this.monto = 0;
-        this.interes = 0;
-        this.plazo = 0;
-        this.cliente = null;
-        this.listaPagos = null;
-        this.idPrestamo = "";
+
     }
 
-    public String getIdPrestamo() {
-        return idPrestamo;
-    }
-
-    public PagoModelo getListaPagos() {
-        return listaPagos;
-    }
 
     public double getMonto() {
         return monto;
@@ -49,7 +44,7 @@ public class Prestamo {
         return interes;
     }
 
-    public int getPlazo() {
+    public double getPlazo() {
         return plazo;
     }
 
@@ -73,13 +68,55 @@ public class Prestamo {
         this.cliente = cliente;
     }
 
+    public void setPlazo(double plazo) {
+        this.plazo = plazo;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    public List<Pago> getPagoList() {
+        return pagoList;
+    }
+
+    public void setPagoList(List<Pago> pagoList) {
+        this.pagoList = pagoList;
+    }
+
+    public double getCuota() {
+        return cuota;
+    }
+
+    public void setCuota(double cuota) {
+        this.cuota = cuota;
+    }
+
     @Override
     public String toString() {
+        if(pagoList==null)
+        {
+            return "Prestamo{" +
+                    "monto=" + monto +
+                    ", interes=" + interes +
+                    ", plazo=" + plazo +
+                    ", saldo=" + Math.round(saldo) +
+                    ", cliente=" + cliente +
+                    ", cuota=" + cuota +
+                    '}';
+        }
         return "Prestamo{" +
                 "monto=" + monto +
                 ", interes=" + interes +
                 ", plazo=" + plazo +
-                ", Cliente: "+ cliente.toString()+
+                ", saldo=" + Math.round(saldo) +
+                ", cliente=" + cliente +
+                ", couta a pagar=" + cuota +
+                ", Lista de pagos=" + pagoList.toString() +
                 '}';
     }
 }

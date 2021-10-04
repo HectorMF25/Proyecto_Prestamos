@@ -4,71 +4,83 @@ package Modelo;
 //préstamo. En dicho caso deberá recalcularse la cuota, considerando el saldo remanente y el plazo restante. Así
 //la nueva cuota mensual será menor que antes.
 
+import java.util.Date;
+
+import java.util.Date;
+
 public class Pago { //clase de pago
 
     private double montoPagar;
 
-    private double interes;
+    private double montoInteres;
 
     private double amortizacion;
 
     private int numeroCuota;
 
-    private Fecha fechaPago;
+    private Object fecha;
 
-    public Pago(double montoPagar, double interes, double amortizacion, int numeroCuota, Fecha fechaPago) {
-        this.montoPagar = montoPagar;
-        this.interes = interes;
-        this.amortizacion = amortizacion;
-        this.numeroCuota = numeroCuota;
-        this.fechaPago = fechaPago;
+    public Pago()
+    {
     }
 
-    public Pago() {
-        this.montoPagar = 0;
-        this.interes = 0;
-        this.amortizacion = 0;
-        this.numeroCuota = 0;
-        this.fechaPago = null;
+
+    public Pago(double montoPagar, double montoInteres, double amortizacion, int numeroCuota, Object fecha) {
+        this.montoPagar = montoPagar;
+        this.montoInteres = montoInteres;
+        this.amortizacion = amortizacion;
+        this.numeroCuota = numeroCuota;
+        this.fecha = new Date();
     }
 
     public double getMontoPagar() {
         return montoPagar;
     }
 
-    public double getInteres() {
-        return interes;
+    public void setMontoPagar(double montoPagar) {
+        this.montoPagar = montoPagar;
+    }
+
+    public double getMontoInteres() {
+        return montoInteres;
+    }
+
+    public void setMontoInteres(double montoInteres) {
+        this.montoInteres = montoInteres;
     }
 
     public double getAmortizacion() {
         return amortizacion;
     }
 
-    public int getNumeroCuota() {
-        return numeroCuota;
-    }
-
-    public Fecha getFechaPago() {
-        return fechaPago;
-    }
-
-    public void setMontoPagar(double montoPagar) {
-        this.montoPagar = montoPagar;
-    }
-
-    public void setInteres(double interes) {
-        this.interes = interes;
-    }
-
     public void setAmortizacion(double amortizacion) {
         this.amortizacion = amortizacion;
+    }
+
+    public int getNumeroCuota() {
+        return numeroCuota;
     }
 
     public void setNumeroCuota(int numeroCuota) {
         this.numeroCuota = numeroCuota;
     }
 
-    public void setFechaPago(Fecha fechaPago) {
-        this.fechaPago = fechaPago;
+    public Object getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Object fecha) {
+        this.fecha = fecha;
+    }
+
+    @Override
+    public String toString() {
+        return "Pago{" +
+                "fecha= " + fecha +
+                ", montoPagar=" + montoPagar +
+                ", interes=" + montoInteres +
+                ", amortizacion=" + amortizacion +
+                ", numeroCuota=" + numeroCuota +
+                '}';
     }
 }
