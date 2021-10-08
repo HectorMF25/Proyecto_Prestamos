@@ -6,7 +6,7 @@ import java.util.List;
 public class JTable_Pagos extends AbstractTableModel {
 
     private List<Pago> filas;
-    private String columnas[] = {"#Cuota", "Monto", "", "Interes %", "Fecha", "Hora"};
+    private String columnas[] = {"#Cuota", "Interes", "Monto", "Amortizacion", "Fecha", "Hora"};
 
     public JTable_Pagos(List<Pago> filas) {
         this.filas = filas;
@@ -31,15 +31,17 @@ public class JTable_Pagos extends AbstractTableModel {
         Pago pago = filas.get(rowIndex); //almaceno el empleado que se encuentra en la fila
         switch (columnIndex) {
             case 0:
-                return "11111111111111111"; //retorno el id de la persona
+                return pago.getNumeroCuota(); //retorno el id de la persona
             case 1:
-                return "2"; //retorno el nombre de la persona
+                return pago.getMontoInteres(); //retorno el nombre de la persona
             case 2:
-                return "3"; //retorno el salario de la persona
+                return pago.getMontoPagar(); //retorno el salario de la persona
             case 3:
-                return "4";
+                return pago.getAmortizacion();
             case 4:
-                return "5";
+                return pago.getFechaPago();
+            case 5:
+                return pago.getHoraPago();
             default:
                 return null;
         }

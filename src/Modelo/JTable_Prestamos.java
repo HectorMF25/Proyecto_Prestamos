@@ -12,7 +12,7 @@ import java.util.List;
 public class JTable_Prestamos extends AbstractTableModel {
 
         private List<Prestamo> filas;
-        private String columnas[] = {"Id prestamo", "Nombre cliente", "Monto", "Intereses %", "Monto total", "Plazo", "Estado"};
+        private String columnas[] = {"ID", "Monto", "Intereses %", "Plazo", "Cuota", "Saldo", "Estado"};
 
         public JTable_Prestamos(List<Prestamo> filas) {
             this.filas = filas;
@@ -37,19 +37,19 @@ public class JTable_Prestamos extends AbstractTableModel {
             Prestamo pres = filas.get(rowIndex); //almaceno el empleado que se encuentra en la fila
             switch (columnIndex) {
                 case 0:
-                    return "11111111111111111"; //retorno el id de la persona
+                    return pres.getId(); //retorno el id de la persona
                 case 1:
-                    return "2"; //retorno el nombre de la persona
+                    return pres.getMonto(); //retorno el nombre de la persona
                 case 2:
-                    return "3"; //retorno el salario de la persona
+                    return pres.getInteres(); //retorno el salario de la persona
                 case 3:
-                    return "4";
+                    return pres.getPlazo();
                 case 4:
-                    return "5";
+                    return pres.getCuota();
                 case 5:
-                    return "6";
+                    return (int)pres.getSaldo();
                 case 6:
-                    return "7";
+                    return pres.getEstadoPago();
                 default:
                     return null;
             }

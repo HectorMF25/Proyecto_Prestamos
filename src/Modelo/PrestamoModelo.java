@@ -1,12 +1,18 @@
 package Modelo;
 
+import jakarta.xml.bind.annotation.XmlElement;
+
 import java.util.ArrayList;
 import java.util.List;
+import static java.lang.Math.pow;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
-
-
-
+@XmlRootElement(name = "Prestamos") //etiqueta general para cuando se le haga el marshall a este objeto
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class PrestamoModelo
 {
     private List<Prestamo> listaPres;
@@ -22,38 +28,57 @@ public class PrestamoModelo
         prestamo.setInteres(in);
         prestamo.setPlazo(p);
         prestamo.setCliente(c);
+        double cuota = (prestamo.getSaldo() * prestamo.getInteres()) / (1 - (pow((1 + prestamo.getInteres()), -prestamo.getPlazo())));
+        prestamo.setCuota(cuota);
         listaPres.add(prestamo);
+    }
+    public void addPrestamo(Prestamo obj){
+        listaPres.add(obj);
     }
 
     public void listarPrestamos()//imprimir lista
     {
         for(Prestamo prestamo : listaPres )
         {
-            System.out.println(prestamo.toString());
+           prestamo.toStringPres();
 
         }
     }
 
-    public void listarPrestamosPorCliente(String id)
-    {
-        List<Prestamo> l = new ArrayList<>();
-        int flag = 0;
-        for (Prestamo prestamo : listaPres )
-        {
-            if(prestamo.getCliente().getCedula()==id)
-            {
-                flag = 1;
-                l.add(prestamo);
-            }
-        }
-        if(flag ==1) {
-            System.out.println("Estos son los prestamos que tiene el cliente");
-            for (Prestamo pres : l) {
+    @XmlElement(name = "prestamo")
+    public List<Prestamo> getListaPres() {
+    return listaPres;
+}
 
-                System.out.println(pres.toString());
+    public Prestamo retornarPrestamo(String id){
+        for(Prestamo pre : listaPres)
+        {
+            if(id.equals(pre.getId()) == true){
+                return pre;
             }
         }
-        else
-            System.out.println("El usuario ingresado no posee ningun prestamo activo");
+        return null;
+    }
+
+    public boolean buscarPrestamo(String id) {
+        for (Prestamo pre : listaPres) {
+            if (id.equals(pre.getId()) == true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void prestamosCliente(Cliente cli, List<Prestamo> prestamoList){
+        //List<Prestamo> listaPrest = new ArrayList<>();
+        //System.out.println("antes del for");
+        for (Prestamo pre : listaPres) {
+          //  System.out.println("id cliente: "+cli.getCedula()+"  id prestamo cliente: "+pre.getCliente().getCedula());
+            if (cli.getCedula().equals(pre.getCliente().getCedula()) == true) {
+               // System.out.println("Entro");
+                prestamoList.add(pre);
+            }
+        }
+       // return  listaPres;
     }
 }

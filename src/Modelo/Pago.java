@@ -18,19 +18,19 @@ public class Pago { //clase de pago
 
     private int numeroCuota;
 
-    private Object fecha;
+    private Fecha fecha;
 
     public Pago()
     {
     }
 
 
-    public Pago(double montoPagar, double montoInteres, double amortizacion, int numeroCuota, Object fecha) {
+    public Pago(double montoPagar, double montoInteres, double amortizacion, int numeroCuota, Fecha fec) {
         this.montoPagar = montoPagar;
         this.montoInteres = montoInteres;
         this.amortizacion = amortizacion;
         this.numeroCuota = numeroCuota;
-        this.fecha = new Date();
+        fecha = fec;
     }
 
     public double getMontoPagar() {
@@ -65,22 +65,22 @@ public class Pago { //clase de pago
         this.numeroCuota = numeroCuota;
     }
 
-    public Object getFecha() {
-        return fecha;
+    public void setFecha(Fecha obj){
+        fecha = obj;
+    }
+    public String getFechaPago() {
+        return fecha.getFechaString();
     }
 
-    public void setFecha(Object fecha) {
-        this.fecha = fecha;
-    }
+    public String getHoraPago(){return fecha.getHoraString();}
 
-    @Override
-    public String toString() {
-        return "Pago{" +
-                "fecha= " + fecha +
+    public void toStringPago() {
+            System.out.println("Pago{" +
+                "fecha= " + getFechaPago() +
                 ", montoPagar=" + montoPagar +
                 ", interes=" + montoInteres +
                 ", amortizacion=" + amortizacion +
                 ", numeroCuota=" + numeroCuota +
-                '}';
+                '}');
     }
 }

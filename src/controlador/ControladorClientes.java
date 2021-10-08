@@ -1,5 +1,6 @@
 package controlador;
 
+import Modelo.Cliente;
 import Modelo.ClienteModelo;
 import Modelo.JAXBParser;
 import org.w3c.dom.Document;
@@ -16,17 +17,18 @@ import java.io.File;
 
 public class ControladorClientes {
     int provincia;
+    Cliente cli;
     VistaClientes vistaCliente;
     ClienteModelo listaCliente;
 
     public  ControladorClientes(){
-
+        cli = null;
         listaCliente = new ClienteModelo();
         vistaCliente = new VistaClientes();
       //  listaCliente.addCliente(new Cliente("123","nombre", "Alajuela","Grecia", "San Mateo"));
         vistaCliente.addMouseMotionListeners(new ListenerMapa());
         vistaCliente.addMouseListeners(new MouseListenerMapa());
-        listaCliente.listarClientes();
+       // listaCliente.listarClientes();
     }
 
     public void tablaXML(){ //me agregara a la lista elementos por defecto
@@ -69,7 +71,7 @@ public class ControladorClientes {
         vistaCliente.getjComboCanton().removeAllItems();
         vistaCliente.getjComboDistrito().removeAllItems();
         try{
-            File archivoXML =new File("C:\\Users\\luda2\\Desktop\\Universidad Hector\\Ciclo 2 (level 2)\\Programacion 3\\Proyectos Programacion\\Proyecto_Prestamos\\src\\"+file);
+            File archivoXML =new File("C:\\Users\\luda2\\Desktop\\Universidad Hector\\Ciclo 2 (level 2)\\Programacion 3\\Proyectos Programacion\\Proyecto_Prestamos\\src\\XML_CostaRica\\"+file);
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = dbf.newDocumentBuilder();
             Document documentoXML = builder.parse(archivoXML);
@@ -225,13 +227,13 @@ public class ControladorClientes {
            public void mouseClicked(MouseEvent e) {
                super.mouseClicked(e);
                switch (provincia){
-                   case 1:vistaCliente.getjTextFProvincia().setText("Heredia"); agregarComboBoxXML("XML_CostaRica/Heredia.xml"); break;
-                   case 2:vistaCliente.getjTextFProvincia().setText("Alajuela"); agregarComboBoxXML("XML_CostaRica/Alajuela.xml");break;
-                   case 3:vistaCliente.getjTextFProvincia().setText("Cartago"); agregarComboBoxXML("XML_CostaRica/Cartago.xml");break;
-                   case 4:vistaCliente.getjTextFProvincia().setText("San Jose"); agregarComboBoxXML("XML_CostaRica/SanJose.xml");break;
-                   case 5:vistaCliente.getjTextFProvincia().setText("Puntarenas"); agregarComboBoxXML("XML_CostaRica/Puntarenas.xml");break;
-                   case 6:vistaCliente.getjTextFProvincia().setText("Guanacaste"); agregarComboBoxXML("XML_CostaRica/Guanacaste.xml");break;
-                   case 7:vistaCliente.getjTextFProvincia().setText("Limon"); agregarComboBoxXML("XML_CostaRica/Limon.xml");break;
+                   case 1:System.out.println("Entro");vistaCliente.getjTextFProvincia().setText("Heredia"); agregarComboBoxXML("Heredia.xml"); break;
+                   case 2:vistaCliente.getjTextFProvincia().setText("Alajuela"); agregarComboBoxXML("Alajuela.xml");break;
+                   case 3:vistaCliente.getjTextFProvincia().setText("Cartago"); agregarComboBoxXML("Cartago.xml");break;
+                   case 4:vistaCliente.getjTextFProvincia().setText("San Jose"); agregarComboBoxXML("SanJose.xml");break;
+                   case 5:vistaCliente.getjTextFProvincia().setText("Puntarenas"); agregarComboBoxXML("Puntarenas.xml");break;
+                   case 6:vistaCliente.getjTextFProvincia().setText("Guanacaste"); agregarComboBoxXML("Guanacaste.xml");break;
+                   case 7:vistaCliente.getjTextFProvincia().setText("Limon"); agregarComboBoxXML("Limon.xml");break;
                    default:break;
                }
            }
