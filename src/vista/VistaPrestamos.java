@@ -3,6 +3,8 @@ package vista;
 import Modelo.*;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -16,10 +18,9 @@ public class VistaPrestamos extends JFrame{
     JTable jTableprestamos, jTableCuotas; //tablas que mostraran los prestamos y los pagos de cadaa prestamo
     JButton btnPago, btnPrestamo, btnRegreso;
     JTextField jTextFMonto, numeroCuota, jTextFIdPre, jTextFPlazo, jTextFInteres, jTextFPago;
-    JLabel jLabelPrestamoCliente, jLabelCuotasPrestamo, jLabelMonto,jLabelInteres,jLabelidPre, jLabelPlazo, jLabelMontoPago;
-
-
-
+    JLabel jLabelPrestamoCliente, jLabelMonto,jLabelInteres,jLabelidPre, jLabelPlazo, jLabelMontoPago;
+    JLabel jLabelIDPersona, jLabelNombrePersona, jLabelProvinciaPersona, jLabelCantonPersona,  jLabelDistritoPersona, jLabelDatosPersona;
+    JLabel jLabelIDPrestamo, jLabelMontoPrestamo, jLabelCuotaPrestamo, jLabelPlazoPrestamo,  jLabelInteresPrestamo, jLabelEstadoPrestamo, jLabelDatosPrestamo;
     public VistaPrestamos(){
 
         setVisible(false);
@@ -44,12 +45,40 @@ public class VistaPrestamos extends JFrame{
         jTableCuotas = new JTable();
 
         jLabelPrestamoCliente = new JLabel("Prestamos del cliente");
-        jLabelCuotasPrestamo = new JLabel("Cuotas del prestamo seleccionado");
         jLabelidPre = new JLabel(t+"ID");
         jLabelInteres =new JLabel(t+"Interes");
         jLabelMonto = new JLabel("Monto");
         jLabelPlazo = new JLabel(t+"Plazo");
         jLabelMontoPago = new JLabel("Monto de cuota");
+
+        Font font1 = new Font("Arial",Font.PLAIN,9);
+        jLabelDatosPersona = new JLabel("-DATOS DEL CLIENTE-");
+        jLabelDatosPersona.setFont(new Font("Arial",Font.BOLD,10));
+        jLabelIDPersona = new JLabel("ID persona");
+        jLabelIDPersona.setFont(font1);
+        jLabelNombrePersona =new JLabel("Nombre persona");
+        jLabelNombrePersona.setFont(font1);
+        jLabelProvinciaPersona = new JLabel("Pronvincia Persona");
+        jLabelProvinciaPersona.setFont(font1);
+        jLabelDistritoPersona = new JLabel("Distrito Persona");
+        jLabelDistritoPersona.setFont(font1);
+        jLabelCantonPersona = new JLabel("Canton Persona");
+        jLabelCantonPersona.setFont(font1);
+
+        jLabelDatosPrestamo = new JLabel("-DATOS DEL PRESTAMO");
+        jLabelDatosPrestamo.setFont(new Font("Arial",Font.BOLD,10));
+        jLabelIDPrestamo = new JLabel();
+        jLabelIDPrestamo.setFont(font1);
+        jLabelMontoPrestamo= new JLabel();
+        jLabelMontoPrestamo.setFont(font1);
+        jLabelCuotaPrestamo= new JLabel();
+        jLabelCuotaPrestamo.setFont(font1);
+        jLabelPlazoPrestamo= new JLabel();
+        jLabelPlazoPrestamo.setFont(font1);
+        jLabelInteresPrestamo= new JLabel();
+        jLabelInteresPrestamo.setFont(font1);
+        jLabelEstadoPrestamo= new JLabel();
+        jLabelEstadoPrestamo.setFont(font1);
 
         jTextFMonto = new JTextField(8);
         numeroCuota= new JTextField(8);
@@ -58,24 +87,42 @@ public class VistaPrestamos extends JFrame{
         jTextFInteres = new JTextField(8);
         jTextFPago = new JTextField(8);
 
-        btnPrestamo = new JButton("add nuevo prestamo");
+        btnPrestamo = new JButton();
+        btnPrestamo.setPreferredSize(new Dimension(30,30));
+        btnPrestamo.setIcon(new ImageIcon("src/imagenes/dar-dinero (2).png"));
+        btnPrestamo.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.RAISED));
+
         btnPago =new JButton("add nuevo pago");
-        btnRegreso = new JButton("Regresar");
+        btnRegreso = new JButton();
+        btnRegreso.setPreferredSize(new Dimension(45,30));
+        btnRegreso.setIcon(new ImageIcon("src/imagenes/regreso.png"));
+        btnRegreso.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
     }
 
     public void addComponents(){
         this.getContentPane().setLayout(new GridLayout(2,0));
-        JPanel norte = new JPanel();
-        JPanel sur = new JPanel();
-        sur.setLayout(new BorderLayout());
-        norte.setLayout(new BorderLayout());
+        JPanel norte = new JPanel(new BorderLayout());
+        JPanel sur = new JPanel(new BorderLayout());
         //Agregamos en la parte superior
         JPanel subNorte = new JPanel(new BorderLayout());
         JPanel subsubNorte= new JPanel();
         JPanel tituloSuperior = new JPanel();
         tituloSuperior.setBackground(new Color(38, 236, 18, 176));
+        //agregando panel que tendra la info de personas
+        JPanel infoPer = new JPanel(new GridLayout(7,1));
+        JPanel blanco = new JPanel();
+        blanco.setBackground(Color.white);
+        infoPer.add(jLabelDatosPersona);
+        infoPer.add(jLabelNombrePersona);
+        infoPer.add(jLabelIDPersona);
+        infoPer.add(jLabelProvinciaPersona);
+        infoPer.add(jLabelCantonPersona);
+        infoPer.add(jLabelDistritoPersona);
+        infoPer.add(blanco);
 
+        infoPer.setBackground(new Color(217, 149, 81, 255));
+        //
         tituloSuperior.add(new JLabel("Prestamos del cliente"));
 
         subsubNorte.add(jLabelMonto,BorderLayout.CENTER);
@@ -90,24 +137,39 @@ public class VistaPrestamos extends JFrame{
         subsubNorte.add(jLabelidPre,BorderLayout.CENTER);
         subsubNorte.add(jTextFIdPre,BorderLayout.CENTER);
 
-       // subsubNorte.add(btnPrestamo,BorderLayout.WEST);
-        subNorte.add(btnPrestamo, BorderLayout.EAST);
+        JPanel panelBotonPr =new JPanel();
+        panelBotonPr.add(btnPrestamo);
+        subNorte.add(panelBotonPr, BorderLayout.EAST);
         subNorte.add(tituloSuperior, BorderLayout.NORTH);
         subNorte.add(subsubNorte,BorderLayout.CENTER);
-        subNorte.add(btnRegreso,BorderLayout.WEST);
+        JPanel panelBotonRegr =new JPanel();
+        panelBotonRegr.add(btnRegreso);
+        subNorte.add(panelBotonRegr,BorderLayout.WEST);
 
         norte.add(subNorte, BorderLayout.NORTH);
         norte.add(panelSuperior,BorderLayout.CENTER);
+        norte.add(infoPer, BorderLayout.WEST);
 
         //agregamos a la parte inferior
         JPanel tituloInferior = new JPanel();
         tituloInferior.setBackground(new Color(38, 236, 18, 176));
         JPanel subsubSur= new JPanel();
-        tituloInferior.add(new JLabel("Cuotas del prestamo selecciona"));
-        JPanel subSur = new JPanel();
-        subSur.setLayout(new BorderLayout());
+        tituloInferior.add(new JLabel("Cuotas del prestamo seleccionado"));
+        JPanel subSur = new JPanel(new BorderLayout());
 
-        subSur.setLayout(new BorderLayout());
+        JPanel infoPres= new JPanel(new GridLayout(8,1));
+        JPanel blanco2 = new JPanel();
+        blanco2.setBackground(Color.white);
+        infoPres.setBackground(new Color(217, 149, 81, 255));
+        infoPres.add(jLabelDatosPrestamo);
+        infoPres.add(jLabelIDPrestamo);
+        infoPres.add(jLabelMontoPrestamo);
+        infoPres.add(jLabelInteresPrestamo);
+        infoPres.add(jLabelCuotaPrestamo);
+        infoPres.add(jLabelPlazoPrestamo);
+        infoPres.add(jLabelEstadoPrestamo);
+        infoPres.add(blanco2);
+
         subsubSur.add(jLabelMontoPago);
         subsubSur.add(jTextFPago);
        // subsubSur.add(btnPago);
@@ -118,6 +180,7 @@ public class VistaPrestamos extends JFrame{
 
         sur.add(subSur, BorderLayout.NORTH);
         sur.add(panelInferior,BorderLayout.CENTER);
+        sur.add(infoPres,BorderLayout.WEST);
 
         //agregamos al panel principal
         this.getContentPane().add(norte);
@@ -220,5 +283,49 @@ public class VistaPrestamos extends JFrame{
 
     public JTextField getjTextFPago() {
         return jTextFPago;
+    }
+
+    public JLabel getjLabelIDPersona() {
+        return jLabelIDPersona;
+    }
+
+    public JLabel getjLabelNombrePersona() {
+        return jLabelNombrePersona;
+    }
+
+    public JLabel getjLabelProvinciaPersona() {
+        return jLabelProvinciaPersona;
+    }
+
+    public JLabel getjLabelCantonPersona() {
+        return jLabelCantonPersona;
+    }
+
+    public JLabel getjLabelDistritoPersona() {
+        return jLabelDistritoPersona;
+    }
+
+    public JLabel getjLabelIDPrestamo() {
+        return jLabelIDPrestamo;
+    }
+
+    public JLabel getjLabelMontoPrestamo() {
+        return jLabelMontoPrestamo;
+    }
+
+    public JLabel getjLabelCuotaPrestamo() {
+        return jLabelCuotaPrestamo;
+    }
+
+    public JLabel getjLabelPlazoPrestamo() {
+        return jLabelPlazoPrestamo;
+    }
+
+    public JLabel getjLabelInteresPrestamo() {
+        return jLabelInteresPrestamo;
+    }
+
+    public JLabel getjLabelEstadoPrestamo() {
+        return jLabelEstadoPrestamo;
     }
 }

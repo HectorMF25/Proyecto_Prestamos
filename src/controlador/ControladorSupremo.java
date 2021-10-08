@@ -130,6 +130,12 @@ public class ControladorSupremo {
                         controlPrestamos.actualizarTablaPrestamos(list); //agregamos los clientes a la tabla
                         controlClientes.vistaCliente.setVisible(false);
                         controlPrestamos.vistaPres.setVisible(true);
+                        //agregamos los datos del usuario a los labels para que se muestre
+                        controlPrestamos.vistaPres.getjLabelNombrePersona().setText("-Nombre: " +controlClientes.cli.getNombre());
+                        controlPrestamos.vistaPres.getjLabelIDPersona().setText("-ID:" + controlClientes.cli.getCedula());
+                        controlPrestamos.vistaPres.getjLabelProvinciaPersona().setText( "-Provincia: " +controlClientes.cli.getProvincia());
+                        controlPrestamos.vistaPres.getjLabelCantonPersona().setText("-Canton: " + controlClientes.cli.getCanton());
+                        controlPrestamos.vistaPres.getjLabelDistritoPersona().setText("-Distrito: " + controlClientes.cli.getDistrito());
                     }catch (RuntimeException tr){
                         JOptionPane.showMessageDialog(null,tr.getMessage());
                     }

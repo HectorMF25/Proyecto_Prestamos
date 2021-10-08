@@ -121,25 +121,15 @@ public class ControladorPrestamos {
         public void mouseClicked(MouseEvent e) { //listener
             super.mouseClicked(e);
             int fila = tabla.getSelectedRow();
-          //  System.out.println("Entro al mouseClicked y extrajo la fija: "+fila);
             String idprestamo = (String)tabla.getValueAt(fila,0);
-           // System.out.println("Al darle click a esa fila extrajo el id:"+idprestamo );
-            //al seleccionar esa fila, me extrae el id del prestamo para asi buscarlo en el registro y desplegar la tabla de las cuotas que se han pagado de esos prestamos
             prestamo = listaPres.retornarPrestamo(idprestamo);
-            //al extraer el prestamo, accedemos a la lista de pagos para crear la tabla
             actualizarTablaPagos(prestamo.getPagoList().getPagoList());
-           /* vistaActores.getTextFieldId().setText((String)tabla.getValueAt(fila,0));
-            vistaActores.getTextFieldNombre().setText((String)tabla.getValueAt(fila,1) );
-            vistaActores.getTextFieldCantPremios().setText(valor);
-            //se habilita el boton de actualizar
-            vistaActores.getTextFieldId().setEditable(false);
-            vistaActores.getBtnActualizar().setEnabled(true);
-            vistaActores.getBtnAgregar().setEnabled(false);
-            vistaActores.getBtnBuscar().setEnabled(false); //se desabilitan estos y se habilitan cuando presione el boton de actualizar
-            vistaActores.getBtnListar().setEnabled(false);
-            vistaActores.getTextFieldId().setBackground(Color.GRAY);
-
-            */
+            vistaPres.getjLabelIDPrestamo().setText("-ID: "+prestamo.getId());
+            vistaPres.getjLabelCuotaPrestamo().setText("-Cuota: "+prestamo.getCuota());
+            vistaPres.getjLabelMontoPrestamo().setText("-Monto: "+prestamo.getMonto());
+            vistaPres.getjLabelInteresPrestamo().setText("-Interes: "+prestamo.getInteres());
+            vistaPres.getjLabelPlazoPrestamo().setText("-Plazo: "+prestamo.getPlazo()+" meses");
+            vistaPres.getjLabelEstadoPrestamo().setText("-Estado: "+prestamo.getEstadoPago());
         }
     }
 

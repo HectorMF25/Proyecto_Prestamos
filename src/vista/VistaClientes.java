@@ -1,5 +1,6 @@
 package vista;
 
+import Modelo.RoundedBorder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -7,6 +8,7 @@ import org.w3c.dom.NodeList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
@@ -105,9 +107,10 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         this.add(jComboDistrito);
 
         //Colocamos el boton
-        btnBuscar.setBounds(300,45,120,35);
+        btnBuscar.setBounds(300,45,135,35);
+        //btnBuscar.setBorder(new RoundedBorder(30));
         this.add(btnBuscar);
-        btnGuardar.setBounds(300,120,120,35);
+        btnGuardar.setBounds(300,120,135,35);
         this.add(btnGuardar);
         btnPrestamo.setBounds(760, 45, 120,125);
         this.add(btnPrestamo);
@@ -119,6 +122,7 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         Color col = new Color(35, 34, 34);
 
         jLabelImagen = new JLabel(new ImageIcon(imagen));
+        jLabelImagen.setBorder(new RoundedBorder(1));
         jLabelNombre = new JLabel("Nombre");
         jLabelNombre.setFont(font);
         jLabelId= new JLabel("ID");
@@ -147,6 +151,7 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
 
 
         btnBuscar = new JButton();
+        btnBuscar.setBorder(new RoundedBorder(26));
         btnBuscar.setText("search");
         btnBuscar.setIcon(new ImageIcon("src/imagenes/buscar (1).png"));
         btnBuscar.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -154,6 +159,7 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         btnBuscar.setToolTipText("Boton para buscar cliente");
 
         btnGuardar = new JButton();
+        btnGuardar.setBorder(new RoundedBorder(26));
         btnGuardar.setText("save");
         btnGuardar.setIcon(new ImageIcon("src/imagenes/guardar-el-archivo (3).png"));
         btnGuardar.setHorizontalTextPosition(SwingConstants.RIGHT);
@@ -161,11 +167,12 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         btnGuardar.setToolTipText("Boton para registrar nuevo cliente");
 
         btnPrestamo =new JButton();
+        btnPrestamo.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.RAISED));
         btnPrestamo.setText("Prestamo");
         btnPrestamo.setIcon(new ImageIcon("src/imagenes/prestamo-a-valor (1).png"));
         btnPrestamo.setHorizontalTextPosition(SwingConstants.CENTER);
         btnPrestamo.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btnPrestamo.setToolTipText("Boton para realizar y ver prestamos");
+        btnPrestamo.setToolTipText("Boton para realizar y ver prestamos del cliente");
     }
 
     public void addListeners(ActionListener ac){
