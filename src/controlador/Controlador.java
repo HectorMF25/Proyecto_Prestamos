@@ -4,6 +4,7 @@ import vista.VistaPago;
 import vista.VistaCliente;
 import vista.VistaPrestamo;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import static java.lang.Math.round;
@@ -31,8 +32,7 @@ public class Controlador
 
 
 
-    public void controladorDeInteracciones()
-    {
+    public void controladorDeInteracciones() throws IOException {
         while(true){
         int opcion, r;
         Scanner scanner = new Scanner(System.in);
@@ -48,6 +48,13 @@ public class Controlador
                         break;
                     case 3:
                         pago();
+                        break;
+                    case 4:
+                        generarReporteClientes();
+                        break;
+                    case 5:
+                        generarReportePagos();
+                        break;
                     default:
                         System.out.println("Opcion invalida, saliendo...");
                 }
@@ -99,7 +106,7 @@ public class Controlador
                 }
                 else
                 {
-                    System.out.println("Terminamos");
+                    prestamoModelo.listaPagosdePrestamo();
                     break;
                 }
 
@@ -120,6 +127,7 @@ public class Controlador
             {
                 //vista.capturaDatosPrestamo();
                 vistaPrestamo.capturaDatosPrestamo();
+                String ID = vistaPrestamo.getTextoID();
                 double m = Double.parseDouble(vistaPrestamo.getTextoMonto());
                 double inte = Double.parseDouble(vistaPrestamo.getTextoInteres());
                 int p = Integer.parseInt(vistaPrestamo.getTextoPlazo());
@@ -129,7 +137,7 @@ public class Controlador
                 System.out.println("Ahora escoja un cliente por id para asignarlo al prestamo:");
                 String id = scanner.nextLine();
                 //creadora.asignarDatosPrestamo(m, inte, p, creadora.buscarClienteID(id));
-                prestamoModelo.asignarDatosPrestamo(m, inte, p, clienteModelo.buscarClienteID(id));
+                prestamoModelo.asignarDatosPrestamo(ID, m, inte, p, clienteModelo.buscarClienteID(id));
                 System.out.println("Desea seguir ingresando prestamos?");
                 r = scanner.nextLine();
                 if (r.equals("1"))
@@ -198,6 +206,14 @@ public class Controlador
             }
 
         }
+    }
+
+    public void generarReporteClientes() throws IOException {
+        clienteModelo.generarregistroClientes();
+    }
+
+    public void generarReportePagos() throws IOException {
+        prestamoModelo.generarRegistrodePagosXPrest();
     }
 }
 

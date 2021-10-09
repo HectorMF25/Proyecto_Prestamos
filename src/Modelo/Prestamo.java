@@ -1,8 +1,12 @@
 package Modelo;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Prestamo {
+
+    private String id;
 
     private double monto;
 
@@ -14,21 +18,22 @@ public class Prestamo {
 
     private double cuota;
 
-    private List<Pago> pagoList;
+    private List<Pago> pagoList = new ArrayList<>();
 
     private Cliente cliente;
 
 
 
-    public Prestamo(double monto, double interes, int plazo, double saldo, Cliente cliente,
-                    List<Pago> pagoList, double cuota) {
+    public Prestamo(String id, double monto, double interes, int plazo, double saldo, Cliente cliente,
+                     double cuota) {
+        this.id = id;
         this.monto = monto;
         this.interes = interes;
         this.plazo = plazo;
         this.saldo = saldo;
         this.cliente = cliente;
-        this.pagoList = pagoList;
         this.cuota = cuota;
+
     }
 
     public Prestamo() {
@@ -96,11 +101,26 @@ public class Prestamo {
         this.cuota = cuota;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void agregarPago(Pago p)
+    {
+        pagoList.add(p);
+    }
+
+
     @Override
     public String toString() {
         if(pagoList==null)
         {
             return "Prestamo{" +
+                    "Prestamo id="+ id +
                     "monto=" + monto +
                     ", interes=" + interes +
                     ", plazo=" + plazo +
@@ -110,6 +130,7 @@ public class Prestamo {
                     '}';
         }
         return "Prestamo{" +
+                "Prestamo id="+ id +
                 "monto=" + monto +
                 ", interes=" + interes +
                 ", plazo=" + plazo +

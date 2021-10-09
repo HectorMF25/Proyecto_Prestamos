@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class VistaPrestamo
 {
+    private  String textoID;
     private String textoMonto;
     private String textoInteres;
     private String textoPlazo;
@@ -32,11 +33,21 @@ public class VistaPrestamo
         this.textoPlazo = textoPlazo;
     }
 
+    public String getTextoID() {
+        return textoID;
+    }
+
+    public void setTextoID(String textoID) {
+        this.textoID = textoID;
+    }
+
     public void capturaDatosPrestamo()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenido(a) al Sistema de Prestamos:");
         System.out.println("Ingrese los datos del prestamo:");
+        System.out.println("Ingrese el id del prestamo:");
+        setTextoID(scanner.nextLine());
         System.out.println("Ingrese el monto:");
         setTextoMonto(scanner.nextLine());
 

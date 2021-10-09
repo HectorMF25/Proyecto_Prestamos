@@ -31,7 +31,7 @@ public class PagoModelo
     public void pagar(Prestamo prestamo, double pago)
     {
 
-        prestamo.setPagoList(pagoList);
+        //prestamo.setPagoList(pagoList);
         double cuota = 0;
         double pagoInteres = 0;
         double pagoAmortizacion = 0;
@@ -46,7 +46,7 @@ public class PagoModelo
             cuota = prestamo.getCuota();
             pagoInteres = prestamo.getSaldo() * prestamo.getInteres();
             pagoAmortizacion = pago - pagoInteres;
-            if(prestamo.getPagoList().isEmpty())
+            if(prestamo.getPagoList()==null)
                 numCuota = 1;
             else
                 numCuota = prestamo.getPagoList().size()+1;
@@ -56,10 +56,12 @@ public class PagoModelo
             }
             if(pago==cuota)
             {
-                prestamo.getPagoList().add(asignarDatosPago(pago, pagoInteres, pagoAmortizacion, numCuota));
-                /*if(prestamo.getPlazo()==numCuota)
-                    prestamo.setSaldo(0);
-                else*/
+                //pagoList.add(asignarDatosPago(pago, pagoInteres, pagoAmortizacion, numCuota));
+                //prestamo.getPagoList().add(asignarDatosPago(pago, pagoInteres, pagoAmortizacion, numCuota));
+                prestamo.agregarPago(asignarDatosPago(pago, pagoInteres, pagoAmortizacion, numCuota));
+                //prestamo.setPagoList(pagoList);
+                //pagoList.clear();
+
                 {
                     saldo = prestamo.getSaldo() - pagoAmortizacion;
                     prestamo.setSaldo(saldo);
@@ -67,7 +69,9 @@ public class PagoModelo
             }
             if(pago>cuota)
             {
-                prestamo.getPagoList().add(asignarDatosPago(pago, pagoInteres, pagoAmortizacion, numCuota));
+                asignarDatosPago(pago, pagoInteres, pagoAmortizacion, numCuota);
+                prestamo.agregarPago(asignarDatosPago(pago, pagoInteres, pagoAmortizacion, numCuota));
+                //prestamo.getPagoList().add(asignarDatosPago(pago, pagoInteres, pagoAmortizacion, numCuota));
                 saldo = prestamo.getSaldo() - pagoAmortizacion;
                 prestamo.setSaldo(saldo);
                 cuota = (prestamo.getSaldo() * prestamo.getInteres()) / (1 - (pow((1 + prestamo.getInteres()), -(prestamo.getPlazo()-numCuota))));
