@@ -196,10 +196,12 @@ public void listaPagosdePrestamo()
         for(Prestamo prestamo : listPrestamo)
         {
             {
-                document.add(new AreaBreak());
+
                 document.add(new Paragraph("Prestamo id: "+prestamo.getId()).setBold());
                 document.add(new Paragraph("Cliente id: "+prestamo.getCliente().getCedula()).setBold());
                 document.add(new Paragraph("Nombre del(a) cliente: "+prestamo.getCliente().getNombre()).setBold());
+
+
             }
             for(Pago pago : prestamo.getPagoList())
             {
@@ -220,17 +222,112 @@ public void listaPagosdePrestamo()
 
                 table.addHeaderCell(String.valueOf(pago.getFecha()));
                 table.addHeaderCell(String.valueOf(Math.round(pago.getMontoPagar())));
-                table.addHeaderCell(String.valueOf(pago.getMontoInteres()));
+                table.addHeaderCell(String.valueOf(Math.round(pago.getMontoInteres())));
                 table.addHeaderCell(String.valueOf(Math.round(pago.getAmortizacion())));
                 table.addHeaderCell(String.valueOf(pago.getNumeroCuota()));
-
-
                 document.add(table);
 
+
+
             }
+            document.add(new Paragraph(""));
+            document.add(new Paragraph(""));
+            document.add(new Paragraph(""));
         }
         document.close();
     }
 
 
-}
+    public void generaPrestamosDeCliente() throws IOException {
+        String n = "Lista de Prestamos por Cliente";
+        PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+        PdfWriter writer = new PdfWriter("Registro_de_prestamosXcliente.pdf");
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf, PageSize.A4.rotate());
+        document.setMargins(50, 50, 50, 50);
+
+        document.add(new Paragraph(n).setFont(font).setBold().setFontSize(20f));
+        document.add(new Paragraph(""));
+        document.add(new Paragraph(""));
+
+        List<String> lisN = new ArrayList<>();
+        for (Prestamo prestamo: listPrestamo)
+        {
+            {
+                int bandera = 0;
+                String nom;
+                nom = prestamo.getCliente().getNombre();
+                if (lisN.isEmpty() || !lisN.contains(nom)) {
+                    lisN.add(nom);
+                    document.add(new Paragraph("Nombre del Cliente: "+nom));
+                    //System.out.println("Nombre del cliente: " + nom);
+                    bandera = 1;
+                }
+                if (bandera == 1)
+                {
+                    for (Prestamo p : listPrestamo)
+                        if (nom.equals(p.getCliente().getNombre()))
+                        {
+                            Table table = new Table(6);
+                            Cell c = new Cell();
+                            Color bkg = ColorConstants.LIGHT_GRAY;
+                            Color frg= ColorConstants.BLUE;
+                            //System.out.println(p.toString());
+                            c= new Cell(); c.add(new Paragraph("Prestamo id")).setBackgroundColor(bkg).setFontColor(frg);
+                            table.addHeaderCell(c);
+                            c= new Cell(); c.add(new Paragraph("Monto del Prestamo")).setBackgroundColor(bkg).setFontColor(frg);
+                            table.addHeaderCell(c);
+                            c= new Cell(); c.add(new Paragraph("Interes")).setBackgroundColor(bkg).setFontColor(frg);
+                            table.addHeaderCell(c);
+                            c= new Cell(); c.add(new Paragraph("Plazo (en meses)")).setBackgroundColor(bkg).setFontColor(frg);
+                            table.addHeaderCell(c);
+                            c= new Cell(); c.add(new Paragraph("Saldo")).setBackgroundColor(bkg).setFontColor(frg);
+                            table.addHeaderCell(c);
+                            c= new Cell(); c.add(new Paragraph("Cuota")).setBackgroundColor(bkg).setFontColor(frg);
+                            table.addHeaderCell(c);
+
+                            table.addHeaderCell(p.getId());
+                            table.addHeaderCell(String.valueOf(p.getMonto()));
+                            table.addHeaderCell(String.valueOf(p.getInteres()));
+                            table.addHeaderCell(String.valueOf(p.getPlazo()));
+                            table.addHeaderCell(String.valueOf(p.getSaldo()));
+                            table.addHeaderCell(String.valueOf(p.getCuota()));
+
+                            document.add(table);
+                        }
+                    document.add(new Paragraph(""));
+                    document.add(new Paragraph(""));
+                    document.add(new Paragraph(""));
+                }
+
+            }
+            }
+            document.close();
+        }
+
+        /*
+        public void generaPrestamosDeCliente()
+    {
+        List<String> lisN = new ArrayList<>();
+        for (Prestamo prestamo: listPrestamo)
+        {
+            {
+                int bandera = 0;
+                String nom;
+                nom = prestamo.getCliente().getNombre();
+                if (lisN.isEmpty() || !lisN.contains(nom)) {
+                    lisN.add(nom);
+                    System.out.println("Nombre del cliente: " + nom);
+                    bandera = 1;
+                }
+                if (bandera == 1) {
+                    for (Prestamo p : listPrestamo)
+                        if (nom.equals(p.getCliente().getNombre())) {
+                            System.out.println(p.toString());
+                        }
+                }
+            }
+            }
+        }
+        */
+    }

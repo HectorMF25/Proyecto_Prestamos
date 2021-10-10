@@ -147,11 +147,12 @@ public class Controlador
                 else
                 {
                     //creadora.listarPrestamos();
-                    prestamoModelo.listarPrestamos();
+                    //prestamoModelo.listarPrestamos();
+                    prestamoModelo.generaPrestamosDeCliente();
                     break;
                 }
             }
-            catch (NumberFormatException e) {
+            catch (NumberFormatException | IOException e) {
                 vistaPrestamo.mostrarErrores("Solo de aceptan numeros!");
             }
         }
