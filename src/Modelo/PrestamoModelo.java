@@ -70,15 +70,11 @@ public class PrestamoModelo
     }
 
     public void prestamosCliente(Cliente cli, List<Prestamo> prestamoList){
-        //List<Prestamo> listaPrest = new ArrayList<>();
-        //System.out.println("antes del for");
         for (Prestamo pre : listaPres) {
-          //  System.out.println("id cliente: "+cli.getCedula()+"  id prestamo cliente: "+pre.getCliente().getCedula());
             if (cli.getCedula().equals(pre.getCliente().getCedula()) == true) {
                // System.out.println("Entro");
                 prestamoList.add(pre);
             }
         }
-       // return  listaPres;
     }
 }

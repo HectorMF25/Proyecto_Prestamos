@@ -16,11 +16,12 @@ public class VistaPrestamos extends JFrame{
     JPanel panelSuperior = new JPanel();
     JPanel panelInferior = new JPanel();
     JTable jTableprestamos, jTableCuotas; //tablas que mostraran los prestamos y los pagos de cadaa prestamo
-    JButton btnPago, btnPrestamo, btnRegreso;
+    JButton btnPago, btnPrestamo, btnRegreso, btnPagoAutomatico, btnReporteCli, btnReportePres;
     JTextField jTextFMonto, numeroCuota, jTextFIdPre, jTextFPlazo, jTextFInteres, jTextFPago;
     JLabel jLabelPrestamoCliente, jLabelMonto,jLabelInteres,jLabelidPre, jLabelPlazo, jLabelMontoPago;
     JLabel jLabelIDPersona, jLabelNombrePersona, jLabelProvinciaPersona, jLabelCantonPersona,  jLabelDistritoPersona, jLabelDatosPersona;
     JLabel jLabelIDPrestamo, jLabelMontoPrestamo, jLabelCuotaPrestamo, jLabelPlazoPrestamo,  jLabelInteresPrestamo, jLabelEstadoPrestamo, jLabelDatosPrestamo;
+
     public VistaPrestamos(){
 
         setVisible(false);
@@ -87,9 +88,8 @@ public class VistaPrestamos extends JFrame{
         jTextFInteres = new JTextField(8);
         jTextFPago = new JTextField(8);
 
-        btnPrestamo = new JButton();
-        btnPrestamo.setPreferredSize(new Dimension(30,30));
-        btnPrestamo.setIcon(new ImageIcon("src/imagenes/dar-dinero (2).png"));
+        btnPrestamo = new JButton("add prestamo");
+        btnPrestamo.setPreferredSize(new Dimension(100,30));
         btnPrestamo.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
         btnPago =new JButton("add nuevo pago");
@@ -98,6 +98,7 @@ public class VistaPrestamos extends JFrame{
         btnRegreso.setIcon(new ImageIcon("src/imagenes/regreso.png"));
         btnRegreso.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.RAISED));
 
+        btnPagoAutomatico = new JButton("Pago automatico");
     }
 
     public void addComponents(){
@@ -121,7 +122,7 @@ public class VistaPrestamos extends JFrame{
         infoPer.add(jLabelDistritoPersona);
         infoPer.add(blanco);
 
-        infoPer.setBackground(new Color(217, 149, 81, 255));
+        infoPer.setBackground(new Color(133, 255, 59, 255));
         //
         tituloSuperior.add(new JLabel("Prestamos del cliente"));
 
@@ -160,7 +161,7 @@ public class VistaPrestamos extends JFrame{
         JPanel infoPres= new JPanel(new GridLayout(8,1));
         JPanel blanco2 = new JPanel();
         blanco2.setBackground(Color.white);
-        infoPres.setBackground(new Color(217, 149, 81, 255));
+        infoPres.setBackground(new Color(133, 255, 59, 255));
         infoPres.add(jLabelDatosPrestamo);
         infoPres.add(jLabelIDPrestamo);
         infoPres.add(jLabelMontoPrestamo);
@@ -172,8 +173,9 @@ public class VistaPrestamos extends JFrame{
 
         subsubSur.add(jLabelMontoPago);
         subsubSur.add(jTextFPago);
+        subsubSur.add(btnPago);
        // subsubSur.add(btnPago);
-        subSur.add(btnPago, BorderLayout.EAST);
+        subSur.add(btnPagoAutomatico, BorderLayout.EAST);
         subSur.add(subsubSur, BorderLayout.CENTER);
         subSur.add(tituloInferior, BorderLayout.NORTH);
       //  subSur
@@ -187,13 +189,6 @@ public class VistaPrestamos extends JFrame{
         this.getContentPane().add(sur);
     }
 
-    public void establecerFormatoTablaPrestamos(PrestamoModelo listD){
-            jTableprestamos.setModel(new JTable_Prestamos(listD.getListaPres()));
-    }
-
-    public void establecerFormatoTablaPagos(List<Pago> list){
-        jTableCuotas.setModel(new JTable_Pagos(list));
-    }
 
     public void agregarTablaPrestamos(JScrollPane sp){ //este metodo me quita la tabla actual y coloca la nueva en el scrollPanel
         if(panelSuperior.getComponentCount() > 0){
@@ -215,12 +210,14 @@ public class VistaPrestamos extends JFrame{
         btnPrestamo.setActionCommand("4");
         btnPago.setActionCommand("5");
         btnRegreso.setActionCommand("6");
+        btnPagoAutomatico.setActionCommand("7");
     }
 
     public void addListeners(ActionListener ac){
         btnRegreso.addActionListener(ac);
         btnPago.addActionListener(ac);
         btnPrestamo.addActionListener(ac);
+        btnPagoAutomatico.addActionListener(ac);
     }
     public void addMouseListeners(MouseListener ml){
         jTableprestamos.addMouseListener(ml);

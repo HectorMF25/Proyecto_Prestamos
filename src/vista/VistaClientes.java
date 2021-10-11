@@ -1,24 +1,16 @@
 package vista;
 
 import Modelo.RoundedBorder;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class VistaClientes extends JFrame { //ventana principal donde se agregaran y busc
 
@@ -28,7 +20,7 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
     JLabel jLabelNombre,  jLabelId, jLabelProvincia, jLabelCanton, jLabelDistrito, jLabelImagen;
     JTextField jTextFProvincia, jTextFNombre, jTextFId;
     JComboBox jComboCanton, jComboDistrito;
-    JButton btnBuscar, btnGuardar, btnPrestamo;
+    JButton btnBuscar, btnGuardar, btnPrestamo, btnReporteCli, btnReportePres;
 
     public VistaClientes(){
 
@@ -59,6 +51,8 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         btnBuscar.setActionCommand("1");
         btnGuardar.setActionCommand("2");
         btnPrestamo.setActionCommand("3");
+        btnReporteCli.setActionCommand("8");
+        btnReportePres.setActionCommand("9");
     }
 
     public void addBackground(){
@@ -112,8 +106,14 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         this.add(btnBuscar);
         btnGuardar.setBounds(300,120,135,35);
         this.add(btnGuardar);
-        btnPrestamo.setBounds(760, 45, 120,125);
+        btnPrestamo.setBounds(760, 30, 120,125);
         this.add(btnPrestamo);
+
+        btnReporteCli.setBounds(760, 175, 150, 30);
+        this.add(btnReporteCli);
+
+        btnReportePres.setBounds(760, 215, 150, 30);
+        this.add(btnReportePres);
     }
 
     void instantiateComponents(){ //Me instanciaa los componentes
@@ -173,12 +173,22 @@ public class VistaClientes extends JFrame { //ventana principal donde se agregar
         btnPrestamo.setHorizontalTextPosition(SwingConstants.CENTER);
         btnPrestamo.setVerticalTextPosition(SwingConstants.BOTTOM);
         btnPrestamo.setToolTipText("Boton para realizar y ver prestamos del cliente");
+
+        btnReporteCli = new JButton("generar pdf clientes");
+        btnReporteCli.setToolTipText("Generara un archivo pdf de los clientes");
+        btnReporteCli.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.RAISED));
+
+        btnReportePres = new JButton("generar pdf prestamos");
+        btnReportePres.setToolTipText("Generara un archivo pdf de los prestamos");
+        btnReportePres.setBorder(javax.swing.BorderFactory.createBevelBorder(BevelBorder.RAISED));
     }
 
     public void addListeners(ActionListener ac){
         btnBuscar.addActionListener(ac);
         btnPrestamo.addActionListener(ac);
         btnGuardar.addActionListener(ac);
+        btnReporteCli.addActionListener(ac);
+        btnReportePres.addActionListener(ac);
     }
 
     public void addMouseMotionListeners(MouseMotionListener mtl){

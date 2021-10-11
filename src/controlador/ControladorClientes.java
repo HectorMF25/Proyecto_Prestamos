@@ -3,6 +3,7 @@ package controlador;
 import Modelo.Cliente;
 import Modelo.ClienteModelo;
 import Modelo.JAXBParser;
+import com.itextpdf.io.IOException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -25,47 +26,21 @@ public class ControladorClientes {
         cli = null;
         listaCliente = new ClienteModelo();
         vistaCliente = new VistaClientes();
-      //  listaCliente.addCliente(new Cliente("123","nombre", "Alajuela","Grecia", "San Mateo"));
         vistaCliente.addMouseMotionListeners(new ListenerMapa());
         vistaCliente.addMouseListeners(new MouseListenerMapa());
-       // listaCliente.listarClientes();
     }
 
-    public void tablaXML(){ //me agregara a la lista elementos por defecto
-
-       /* list.add(new ActorModelo("123","Emma Stone", 28));
-        list.add(new ActorModelo("321","Andy Samberg", 19));
-        list.add(new ActorModelo("345","Leonardo Di Caprio", 1));*/
-
-        JAXBParser parser = new JAXBParser(); //creo la intancia de la clase que me realiza el marshal y unkmarshall
-        parser.marshall(listaCliente, "Clientes.xml"); //Me agarra toda la lista y la metera adentro de un archivo
-        ClienteModelo lista2 = (ClienteModelo) parser.unmarshall(new ClienteModelo(), "Clientes.xml");
-
-      /*  JTable tabla = new JTable();
-        tabla.setModel(new JTableModelActor(lista2.getList()));
-        tabla.addMouseListener(new ListenerTable(tabla));
-        vistaActores.setTablaActores(tabla); //se agrego
-
-        JScrollPane pn1 = new JScrollPane(tabla);
-        vistaActores.agregarTabla(pn1);*/
+    public void escribeClientes()
+    {
+        JAXBParser parser = new JAXBParser();
+        parser.marshall(listaCliente, "clientes.xml");
     }
 
-   /* public void actualizarDatos(){
-        JTable tabla = new JTable();
-        tabla.setModel(new JTableModelActor(list.getList()));
-        tabla.addMouseListener(new ListenerTable(tabla));
-        vistaActores.setTablaActores(tabla); //se agrego
-    }*/
-
-   /* public void actualizarTabla(List<Cliente> list){
-        JTable tabla = new JTable();
-        tabla.setModel(new JTableModelActor(list));
-        tabla.addMouseListener(new ListenerTable(tabla));
-        vistaActores.setTablaActores(tabla); //se agrego
-
-        JScrollPane pn1 = new JScrollPane(tabla);
-        vistaActores.agregarTabla(pn1);
-    }*/
+    public void leeClientes() throws IOException
+    {
+        JAXBParser parser = new JAXBParser();
+        listaCliente = (ClienteModelo) parser.unmarshall(listaCliente, "clientes.xml");
+    }
 
     public void agregarComboBoxXML(String file){ //me agregaa los distritos y cantones
         vistaCliente.getjComboCanton().removeAllItems();
@@ -101,9 +76,6 @@ public class ControladorClientes {
             System.out.println("error");
         }
        }
-
-
-
 
        private class ListenerMapa implements MouseMotionListener{
 

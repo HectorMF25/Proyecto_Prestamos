@@ -1,7 +1,7 @@
 package Modelo;
-
 import javax.swing.*;
-import java.util.List;
+
+import java.util.Date;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.round;
@@ -132,48 +132,54 @@ public class Prestamo {
         int verificar = 0;
         Pago pago = new Pago();
         if ((verificarPago(pagoCuota))) { //si el pago es menor a la cuota
-           // System.out.println("No es posible realizar el pago ya que es menor la cuota o mayor al saldo");
             JOptionPane.showMessageDialog(null,"No es posible realizar el pago ya que es\n menor la cuota o mayor al saldo");
             return;
         }
         if (confirmacionCancelacion()) {
-           // System.out.println("Ya se cancelo este prestamo");
             JOptionPane.showMessageDialog(null,"Ya se cancelo este prestamo");
             setEstado(true);
             return;
         }
-       // System.out.println("pagoCuota: "+pagoCuota+"  -getCuota: "+getCuota()+"  -getPagoList: "+getPagoList().numeroPagos()+"    plazo: "+plazo);
         if( pagoCuota>round(getCuota()) && getPagoList().numeroPagos()+1 == plazo){
             JOptionPane.showMessageDialog(null,"Es el ultimo plazo, debe de pagar su totalidad");
-            // System.out.println("Es el ultimo plazo, debe de pagar su totalidad");
               return;
          }
          if(verficarExcedeCuota(pagoCuota)){
-           //  System.out.println("Entra 0");
              pago.setMontoPagar(pagoCuota);
              setCuota(pagoCuota);
              verificar = 1;
          }else{
-            // System.out.println("Entra 1");
             pago.setMontoPagar(getCuota());
         }
+         Object fecha = new Date();
+         String fec = String.valueOf(fecha);
         pago.setMontoInteres(getInteres()); //interes del pago
-        pago.setAmortizacion(amortizacionPago()); //
+        pago.setAmortizacion((float)amortizacionPago()); //
         pago.setNumeroCuota(getPagoList().numeroPagos());
-        pago.setFecha(new Fecha());
+        pago.setFecha(fec);
         pagoList.asignarDatosPago(pago);
-        setSaldo(getSaldo() - pago.getAmortizacion());
-       // System.out.println("Plazo: "+plazo+" -listaPago: "+getPagoList().numeroPagos());
+        setSaldo(getSaldo() -  (float)pago.getAmortizacion());
         if(verificar == 1 ){
             setCuota(calculoDeCuota());
             verificar =0;
         }
-       // System.out.println("Imprime lista de pagos");
-       // pagoList.imprimir();
+    }
+
+    public void realizaPagoAutomatico(){
+        if (confirmacionCancelacion()) {
+            // System.out.println("Ya se cancelo este prestamo");
+            JOptionPane.showMessageDialog(null,"Ya se cancelo este prestamo");
+            setEstado(true);
+            return;
+        }
+        double cuota = calculoDeCuota();
+        setCuota(cuota);
+        System.out.println("cuota: "+cuota);
+        agregarPago(cuota);
     }
 
     public boolean confirmacionCancelacion(){
-        if(getPagoList().numeroPagos() > plazo){
+        if(getPagoList().numeroPagos() == plazo){
             return true;
         }
         return false;
@@ -185,8 +191,17 @@ public class Prestamo {
     }
 
     public boolean verificarPago(double pago){
-       //System.out.println("pago: "+pago+" -monto: "+getMonto()+" -saldo: "+round(getSaldo())+" -Amortiacion: "+ amortizacionPago()+" -cuota: "+getCuota());
-        if(pago<getCuota() || ((int)amortizacionPago())>((int)(getSaldo()))){
+      // System.out.println("pago: "+pago+" -monto: "+getMonto()+" -saldo: "+round(getSaldo())+" -Amortiacion: "+ amortizacionPago()+" -cuota: "+getCuota());
+        if(pago < getCuota()){
+            System.out.println("1 = pago: "+pago + "  -cuota: "+getCuota());
+            return true;
+        }
+        if(amortizacionPago()-1 > getSaldo()){
+            System.out.println("2 = amortizacion: "+((int)amortizacionPago())+ "  -saldo: "+((int)(getSaldo())));
+            return true;
+        }
+        if(pago > round((saldo*interes)+saldo)){
+            System.out.println("3 = pago: "+pago+ "  -saldo con inters: "+((saldo*interes)+saldo));
             return true;
         }
         return false;
@@ -207,7 +222,6 @@ public class Prestamo {
     }
 
     public void toStringPres() {
-        System.out.println("-Monto: "+monto +"\n-interes=" + interes + "\n-plazo=" + plazo +"\n-saldo=" + Math.round(saldo) +"\n-cliente=" + cliente +"\n-couta a pagar=" + cuota +"\n-interes="+interes);
         pagoList.imprimir();
     }
 

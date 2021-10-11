@@ -1,13 +1,16 @@
 package Modelo;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-import static java.lang.Math.pow;
-import static java.lang.Math.round;
 
+@XmlRootElement(name = "Pagos") //etiqueta general para cuando se le haga el marshall a este objeto
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class PagoModelo
 {
     List<Pago> pagoList;
@@ -36,6 +39,7 @@ public class PagoModelo
         }
     }
 
+    @XmlElement(name = "pago")
     public List<Pago> getPagoList() {
         return pagoList;
     }

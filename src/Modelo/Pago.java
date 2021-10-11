@@ -5,7 +5,6 @@ package Modelo;
 //la nueva cuota mensual será menor que antes.
 
 import java.util.Date;
-
 import java.util.Date;
 
 public class Pago { //clase de pago
@@ -18,19 +17,19 @@ public class Pago { //clase de pago
 
     private int numeroCuota;
 
-    private Fecha fecha;
+    private String fecha;
 
     public Pago()
     {
     }
 
 
-    public Pago(double montoPagar, double montoInteres, double amortizacion, int numeroCuota, Fecha fec) {
+    public Pago(double montoPagar, double montoInteres, double amortizacion, int numeroCuota, String fec) {
         this.montoPagar = montoPagar;
         this.montoInteres = montoInteres;
         this.amortizacion = amortizacion;
         this.numeroCuota = numeroCuota;
-        fecha = fec;
+        this.fecha = fec;
     }
 
     public double getMontoPagar() {
@@ -65,14 +64,14 @@ public class Pago { //clase de pago
         this.numeroCuota = numeroCuota;
     }
 
-    public void setFecha(Fecha obj){
+    public void setFecha(String obj){
         fecha = obj;
     }
+
     public String getFechaPago() {
-        return fecha.getFechaString();
+        return fecha;
     }
 
-    public String getHoraPago(){return fecha.getHoraString();}
 
     public void toStringPago() {
             System.out.println("Pago{" +

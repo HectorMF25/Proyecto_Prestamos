@@ -1,8 +1,15 @@
 package Modelo;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@XmlRootElement(name = "clientes") //etiqueta general para cuando se le haga el marshall a este objeto
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class ClienteModelo
 {
     private List<Cliente> listaC;
@@ -54,5 +61,9 @@ public class ClienteModelo
             }
         }
        return null;
+    }
+    @XmlElement(name = "cliente")
+    public List<Cliente> getListaC() {
+        return listaC;
     }
 }

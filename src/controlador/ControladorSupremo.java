@@ -1,15 +1,28 @@
 package controlador;
 
-import Modelo.Cliente;
-import Modelo.JTable_Prestamos;
-import Modelo.PagoModelo;
-import Modelo.Prestamo;
+import Modelo.*;
+import com.itextpdf.io.IOException;
+import com.itextpdf.io.font.constants.StandardFonts;
+import com.itextpdf.kernel.colors.Color;
+import com.itextpdf.kernel.colors.ColorConstants;
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 /*
 btnBuscar--->("1");
@@ -24,46 +37,138 @@ public class ControladorSupremo {
     ControladorClientes controlClientes;
     ControladorPrestamos controlPrestamos;
 
-    public ControladorSupremo(){
+    public ControladorSupremo() throws java.io.IOException {
         controlClientes = new ControladorClientes();
         controlClientes.vistaCliente.addListeners(new ListenersAction());
         controlPrestamos =new ControladorPrestamos();
         controlPrestamos.vistaPres.addListeners(new ListenersAction());
-       // controlPrestamos.tablaXML();
-       // controlPrestamos.agregarDatosDefault();
-        agregarDatosDefaultS();
+        //agregarDatosDefaultS();
+        controlClientes.leeClientes();
+        controlPrestamos.leePrestamos();
     }
     public void agregarDatosDefaultS(){
         PagoModelo list1 = new PagoModelo();
         Cliente cli1 = new Cliente("123", "Hector1", "Alajuela", "Alajuela", "Carrizal");
-        Prestamo prestamo1 = new Prestamo("1234", 1500, 0.05, 4, cli1, list1);
+      //  Prestamo prestamo1 = new Prestamo("1234", 1500, 0.05, 4, cli1, list1);
 
         //agregandole pagos por default
-        prestamo1.agregarPago(423);
-        prestamo1.agregarPago(423);
-        prestamo1.agregarPago(423);
+     //   prestamo1.agregarPago(423);
+      //  prestamo1.agregarPago(423);
+       // prestamo1.agregarPago(423);
 
 
         PagoModelo list2 = new PagoModelo();
         Cliente cli2 = new Cliente("3210", "Hector2", "Limon", "Pococí", "Guapiles");
-        Prestamo prestamo2 = new Prestamo("321", 6000, 0.10, 6, cli2, list2);
+       // Prestamo prestamo2 = new Prestamo("321", 6000, 0.10, 6, cli2, list2);
 
         //agregando prestamos
-        controlPrestamos.listaPres.addPrestamo(prestamo2);
-        controlPrestamos.listaPres.addPrestamo(prestamo1);
+        //controlPrestamos.listaPres.addPrestamo(prestamo2);
+       // controlPrestamos.listaPres.addPrestamo(prestamo1);
 
         //agregando a los clientes
         controlClientes.listaCliente.addCliente(cli1);
         controlClientes.listaCliente.addCliente(cli2);
 
-       // JTable tabla = new JTable();
-       // tabla.setModel(new JTable_Prestamos( controlPrestamos.listaPres.getListaPres()));
-      //  controlPrestamos.agregarListenerTabla(tabla);
-      //  controlPrestamos.vistaPres.setjTableprestamos(tabla); //se agrego
-
-      //  JScrollPane pn1 = new JScrollPane(tabla);
-      //  controlPrestamos.vistaPres.agregarTablaPrestamos(pn1);
+        controlPrestamos.escribePrestamos();
+        controlClientes.escribeClientes();
     }
+
+
+    public void generarregistroClientes() throws IOException, java.io.IOException {
+        String n = "Lista de Clientes";
+        PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+        PdfWriter writer = new PdfWriter("Registro_de_Clientes.pdf");
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf, PageSize.A4.rotate());//pdf, PageSize.A4.rotate());
+        document.setMargins(50, 50, 50, 50);
+
+        document.add(new Paragraph(""));
+        document.add(new Paragraph(n).setFont(font).setBold().setFontSize(20f));
+        document.add(new Paragraph(""));
+        document.add(new Paragraph(""));
+
+        Table table = new Table(5);
+        Cell c = new Cell();
+        Color bkg = ColorConstants.LIGHT_GRAY;
+        Color frg= ColorConstants.BLUE;
+
+        c= new Cell(); c.add(new Paragraph("Nombre")).setBackgroundColor(bkg).setFontColor(frg);
+        table.addHeaderCell(c);
+        c= new Cell(); c.add(new Paragraph("Cedula")).setBackgroundColor(bkg).setFontColor(frg);
+        table.addHeaderCell(c);
+        c= new Cell(); c.add(new Paragraph("Provincia")).setBackgroundColor(bkg).setFontColor(frg);
+        table.addHeaderCell(c);
+        c= new Cell(); c.add(new Paragraph("Canton")).setBackgroundColor(bkg).setFontColor(frg);
+        table.addHeaderCell(c);
+        c= new Cell(); c.add(new Paragraph("Distrito")).setBackgroundColor(bkg).setFontColor(frg);
+        table.addHeaderCell(c);
+
+        for(Cliente cli : controlClientes.listaCliente.getListaC())
+        {
+            {
+                //System.out.println(cli.toString());
+
+                table.addHeaderCell(cli.getNombre()+"");
+                table.addHeaderCell(cli.getCedula()+"");
+                table.addHeaderCell(cli.getProvincia()+"");
+                table.addHeaderCell(cli.getCanton()+"");
+                table.addHeaderCell(cli.getDistrito()+"");
+
+            }
+        }
+        document.add(table);
+        document.close();
+    }
+
+    public void generarRegistrodePagosXPrest() throws IOException, java.io.IOException {
+
+        String n = "Lista de Pagos de un Prestamo";
+        PdfFont font = PdfFontFactory.createFont(StandardFonts.HELVETICA);
+        PdfWriter writer = new PdfWriter("Registro_de_pagos.pdf");
+        PdfDocument pdf = new PdfDocument(writer);
+        Document document = new Document(pdf, PageSize.A4.rotate());
+        document.setMargins(50, 50, 50, 50);
+        document.add(new Paragraph(n).setFont(font).setBold().setFontSize(20f));
+        document.add(new Paragraph(""));
+        document.add(new Paragraph(""));
+        for(Prestamo prestamo : controlPrestamos.listaPres.getListaPres())
+        {
+            {
+
+                document.add(new Paragraph("Prestamo id: "+prestamo.getId()).setBold());
+                document.add(new Paragraph("Cliente id: "+prestamo.getCliente().getCedula()).setBold());
+                document.add(new Paragraph("Nombre del(a) cliente: "+prestamo.getCliente().getNombre()).setBold());
+            }
+            for(Pago pago : prestamo.getPagoList().getPagoList())
+            {
+                Table table = new Table(5);
+                Cell c = new Cell();
+                Color bkg = ColorConstants.LIGHT_GRAY;
+                Color frg= ColorConstants.BLUE;
+                c= new Cell(); c.add(new Paragraph("Fecha")).setBackgroundColor(bkg).setFontColor(frg);
+                table.addHeaderCell(c);
+                c= new Cell(); c.add(new Paragraph("Monto a pagar")).setBackgroundColor(bkg).setFontColor(frg);
+                table.addHeaderCell(c);
+                c= new Cell(); c.add(new Paragraph("Monto destinado al interes")).setBackgroundColor(bkg).setFontColor(frg);
+                table.addHeaderCell(c);
+                c= new Cell(); c.add(new Paragraph("Monto destinado a la Amortizacion")).setBackgroundColor(bkg).setFontColor(frg);
+                table.addHeaderCell(c);
+                c= new Cell(); c.add(new Paragraph("Numero de cuota")).setBackgroundColor(bkg).setFontColor(frg);
+                table.addHeaderCell(c);
+                table.addHeaderCell(String.valueOf(pago.getFechaPago()));
+                table.addHeaderCell(String.valueOf(Math.round(pago.getMontoPagar())));
+                table.addHeaderCell(String.valueOf(Math.round(pago.getMontoInteres())));
+                table.addHeaderCell(String.valueOf(Math.round(pago.getAmortizacion())));
+                table.addHeaderCell(String.valueOf(pago.getNumeroCuota()));
+                document.add(table);
+            }
+            document.add(new Paragraph(""));
+            document.add(new Paragraph(""));
+            document.add(new Paragraph(""));
+        }
+        document.close();
+    }
+
 
     private class ListenersAction implements ActionListener{
         @Override
@@ -110,6 +215,9 @@ public class ControladorSupremo {
 
                         controlClientes.listaCliente.listarClientes();
                         JOptionPane.showMessageDialog(null, "Se ingreso el cliente al sistema");
+
+                        controlClientes.escribeClientes();
+
                     }catch (RuntimeException rt) {
                         JOptionPane.showMessageDialog(null, rt.getMessage());
                     }
@@ -166,7 +274,7 @@ public class ControladorSupremo {
                         if(montoPres < 500){
                             throw new RuntimeException("ERROR, el monto minimo de un prestamo es de 500");
                         }
-                        if(interesPres > 0.9 || interesPres <0){
+                        if(interesPres > 0.9 || interesPres <=0){
                             throw new RuntimeException("ERROR, interes debe de ser menor a 1 y mayor igual a 0\n ejm: 0.9, 0.0, 0.05");
                         }
                         if(plazoPres<0){
@@ -181,6 +289,9 @@ public class ControladorSupremo {
                         List<Prestamo> list = new ArrayList<>();
                         controlPrestamos.listaPres.prestamosCliente(cli,list); //obtengo la lista de prestamos de ese cliente
                         controlPrestamos.actualizarTablaPrestamos(list);
+
+                        controlPrestamos.escribePrestamos(); //guarda en xml
+
                     }catch (RuntimeException rt) {
                         JOptionPane.showMessageDialog(null, rt.getMessage());
                     }
@@ -198,17 +309,50 @@ public class ControladorSupremo {
                        controlPrestamos.listaPres.prestamosCliente(controlClientes.cli,list);
                        controlPrestamos.actualizarTablaPrestamos(list);
 
+                       controlPrestamos.escribePrestamos();
+
                     }catch (RuntimeException rt){
                         JOptionPane.showMessageDialog(null,rt.getMessage());
                     }
                     break;
                 }//Boton de realizar pago a prestamo
                 case 6: {
-                    System.out.println("entro al boton regresar");
+                    List<Prestamo> list = new ArrayList<>();
+                    PagoModelo listP  = new PagoModelo();
                     controlPrestamos.vistaPres.setVisible(false);
                     controlClientes.vistaCliente.setVisible(true);
+                    controlPrestamos.actualizarTablaPagos(listP.getPagoList());
+                   // controlPrestamos.actualizarTablaPrestamos(list);
                     break;
                 }//boton para regrear a la ventana principal
+                case 7:{
+                    List<Prestamo> list = new ArrayList<>();
+                    controlPrestamos.prestamo.realizaPagoAutomatico();
+                    controlPrestamos.actualizarTablaPagos(controlPrestamos.prestamo.getPagoList().getPagoList());
+                    controlPrestamos.listaPres.prestamosCliente(controlClientes.cli,list);
+                    controlPrestamos.actualizarTablaPrestamos(list);
+                    controlPrestamos.escribePrestamos();
+                    break;
+                } //pago automatico
+                case 8:{ //genera reporte de clientes pdf
+                    try {
+                        generarregistroClientes();
+                    } catch (java.io.IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(null, "Se ha generado un reporte\n de los clientes en pdf");
+                    break;
+                }
+                case 9:{ //genera reporte de clientes pdf
+                    try {
+                        generarRegistrodePagosXPrest();
+                    } catch (java.io.IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    JOptionPane.showMessageDialog(null, "Se ha generado un reporte\n de los prestamos en pdf");
+                    break;
+                }
+                default:{break;}
             }
         }
     }
